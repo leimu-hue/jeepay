@@ -28,11 +28,11 @@ import java.util.Date;
 public class MchDivisionReceiverGroup implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<MchDivisionReceiverGroup> gw(){
+    public static final LambdaQueryWrapper<MchDivisionReceiverGroup> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 组ID
@@ -82,7 +82,6 @@ public class MchDivisionReceiverGroup implements Serializable {
      */
     @Schema(title = "updatedAt", description = "更新时间")
     private Date updatedAt;
-
 
 
 }

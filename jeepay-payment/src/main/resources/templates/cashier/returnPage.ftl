@@ -6,10 +6,27 @@
     <title>支付完成</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.4.3/css/layui.css">
     <style>
-        .mainDiv1 {color:lightseagreen; text-align:center; margin-top: 50px;}
-        .mainDiv2 {text-align:center; margin-top: 10px;}
-        .mainDiv3 {text-align:center; margin-top: 200px;}
-        .mainDivTitle {text-align:center; margin-top: 20px; color:orangered }
+        .mainDiv1 {
+            color: lightseagreen;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .mainDiv2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .mainDiv3 {
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        .mainDivTitle {
+            text-align: center;
+            margin-top: 20px;
+            color: orangered
+        }
     </style>
 </head>
 <body>
@@ -27,14 +44,14 @@
 
 <script src="https://cdn.staticfile.org/layui/2.4.3/layui.min.js"></script>
 <script>
-    layui.use(['jquery'], function(){
-        layui.$(".closeBtn").click(function(){
+    layui.use(['jquery'], function () {
+        layui.$(".closeBtn").click(function () {
             var ua = navigator.userAgent.toLowerCase();
-            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
                 WeixinJSBridge.call('closeWindow');
-            }else if(ua.indexOf("alipay")!=-1){
+            } else if (ua.indexOf("alipay") != -1) {
                 AlipayJSBridge.call('closeWebview');
-            }else{
+            } else {
                 window.close();
             }
         });

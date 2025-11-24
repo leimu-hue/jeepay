@@ -27,10 +27,10 @@ import java.util.Date;
 @TableName("t_mch_app")
 public class MchApp extends BaseModel {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     //gw
-    public static final LambdaQueryWrapper<MchApp> gw(){
+    public static final LambdaQueryWrapper<MchApp> gw() {
         return new LambdaQueryWrapper<>();
     }
 

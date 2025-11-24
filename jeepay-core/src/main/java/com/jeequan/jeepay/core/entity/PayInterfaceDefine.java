@@ -45,11 +45,11 @@ import java.util.Date;
 @TableName(value = "t_pay_interface_define", autoResultMap = true)
 public class PayInterfaceDefine extends BaseModel implements Serializable {
 
-    public static final LambdaQueryWrapper<PayInterfaceDefine> gw(){
+    public static final LambdaQueryWrapper<PayInterfaceDefine> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 接口代码 全小写  wxpay alipay

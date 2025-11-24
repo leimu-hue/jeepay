@@ -37,28 +37,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /*
-* 配置信息查询服务 （兼容 缓存 和 直接查询方式）
-*
-* @author terrfly
-* @site https://www.jeequan.com
-* @date 2021/11/18 14:41
-*/
+ * 配置信息查询服务 （兼容 缓存 和 直接查询方式）
+ *
+ * @author terrfly
+ * @site https://www.jeequan.com
+ * @date 2021/11/18 14:41
+ */
 @Slf4j
 @Service
 public class ConfigContextQueryService {
 
-    @Autowired ConfigContextService configContextService;
-    @Autowired private MchInfoService mchInfoService;
-    @Autowired private MchAppService mchAppService;
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
+    @Autowired
+    ConfigContextService configContextService;
+    @Autowired
+    private MchInfoService mchInfoService;
+    @Autowired
+    private MchAppService mchAppService;
+    @Autowired
+    private PayInterfaceConfigService payInterfaceConfigService;
 
-    private boolean isCache(){
+    private boolean isCache() {
         return SysConfigService.IS_USE_CACHE;
     }
 
-    public MchApp queryMchApp(String mchNo, String mchAppId){
+    public MchApp queryMchApp(String mchNo, String mchAppId) {
 
-        if(isCache()){
+        if (isCache()) {
             return configContextService.getMchAppConfigContext(mchNo, mchAppId).getMchApp();
         }
 
@@ -69,16 +73,16 @@ public class ConfigContextQueryService {
         return queryMchInfoAndAppInfo(mchAppService.getById(mchAppId).getMchNo(), mchAppId);
     }
 
-    public MchAppConfigContext queryMchInfoAndAppInfo(String mchNo, String mchAppId){
+    public MchAppConfigContext queryMchInfoAndAppInfo(String mchNo, String mchAppId) {
 
-        if(isCache()){
+        if (isCache()) {
             return configContextService.getMchAppConfigContext(mchNo, mchAppId);
         }
 
         MchInfo mchInfo = mchInfoService.getById(mchNo);
         MchApp mchApp = queryMchApp(mchNo, mchAppId);
 
-        if(mchInfo == null || mchApp == null){
+        if (mchInfo == null || mchApp == null) {
             return null;
         }
 
@@ -94,9 +98,9 @@ public class ConfigContextQueryService {
     }
 
 
-    public NormalMchParams queryNormalMchParams(String mchNo, String mchAppId, String ifCode){
+    public NormalMchParams queryNormalMchParams(String mchNo, String mchAppId, String ifCode) {
 
-        if(isCache()){
+        if (isCache()) {
             return configContextService.getMchAppConfigContext(mchNo, mchAppId).getNormalMchParamsByIfCode(ifCode);
         }
 
@@ -109,7 +113,7 @@ public class ConfigContextQueryService {
                 .eq(PayInterfaceConfig::getIfCode, ifCode)
         );
 
-        if(payInterfaceConfig == null){
+        if (payInterfaceConfig == null) {
             return null;
         }
 
@@ -117,9 +121,9 @@ public class ConfigContextQueryService {
     }
 
 
-    public IsvsubMchParams queryIsvsubMchParams(String mchNo, String mchAppId, String ifCode){
+    public IsvsubMchParams queryIsvsubMchParams(String mchNo, String mchAppId, String ifCode) {
 
-        if(isCache()){
+        if (isCache()) {
             return configContextService.getMchAppConfigContext(mchNo, mchAppId).getIsvsubMchParamsByIfCode(ifCode);
         }
 
@@ -132,7 +136,7 @@ public class ConfigContextQueryService {
                 .eq(PayInterfaceConfig::getIfCode, ifCode)
         );
 
-        if(payInterfaceConfig == null){
+        if (payInterfaceConfig == null) {
             return null;
         }
 
@@ -140,10 +144,9 @@ public class ConfigContextQueryService {
     }
 
 
+    public IsvParams queryIsvParams(String isvNo, String ifCode) {
 
-    public IsvParams queryIsvParams(String isvNo, String ifCode){
-
-        if(isCache()){
+        if (isCache()) {
             IsvConfigContext isvConfigContext = configContextService.getIsvConfigContext(isvNo);
             return isvConfigContext == null ? null : isvConfigContext.getIsvParamsByIfCode(ifCode);
         }
@@ -157,7 +160,7 @@ public class ConfigContextQueryService {
                 .eq(PayInterfaceConfig::getIfCode, ifCode)
         );
 
-        if(payInterfaceConfig == null){
+        if (payInterfaceConfig == null) {
             return null;
         }
 
@@ -165,50 +168,51 @@ public class ConfigContextQueryService {
 
     }
 
-    public AlipayClientWrapper getAlipayClientWrapper(MchAppConfigContext mchAppConfigContext){
+    public AlipayClientWrapper getAlipayClientWrapper(MchAppConfigContext mchAppConfigContext) {
 
-        if(isCache()){
+        if (isCache()) {
             return
                     configContextService.getMchAppConfigContext(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId()).getAlipayClientWrapper();
         }
 
-        if(mchAppConfigContext.isIsvsubMch()){
+        if (mchAppConfigContext.isIsvsubMch()) {
 
-            AlipayIsvParams alipayParams = (AlipayIsvParams)queryIsvParams(mchAppConfigContext.getMchInfo().getIsvNo(), CS.IF_CODE.ALIPAY);
+            AlipayIsvParams alipayParams = (AlipayIsvParams) queryIsvParams(mchAppConfigContext.getMchInfo().getIsvNo(), CS.IF_CODE.ALIPAY);
             return AlipayClientWrapper.buildAlipayClientWrapper(alipayParams);
-        }else{
+        } else {
 
-            AlipayNormalMchParams alipayParams = (AlipayNormalMchParams)queryNormalMchParams(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId(), CS.IF_CODE.ALIPAY);
+            AlipayNormalMchParams alipayParams = (AlipayNormalMchParams) queryNormalMchParams(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId(), CS.IF_CODE.ALIPAY);
             return AlipayClientWrapper.buildAlipayClientWrapper(alipayParams);
         }
 
     }
 
-    public WxServiceWrapper getWxServiceWrapper(MchAppConfigContext mchAppConfigContext){
+    public WxServiceWrapper getWxServiceWrapper(MchAppConfigContext mchAppConfigContext) {
 
-        if(isCache()){
+        if (isCache()) {
             return
                     configContextService.getMchAppConfigContext(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId()).getWxServiceWrapper();
         }
 
-        if(mchAppConfigContext.isIsvsubMch()){
+        if (mchAppConfigContext.isIsvsubMch()) {
 
-            WxpayIsvParams wxParams = (WxpayIsvParams)queryIsvParams(mchAppConfigContext.getMchInfo().getIsvNo(), CS.IF_CODE.WXPAY);
+            WxpayIsvParams wxParams = (WxpayIsvParams) queryIsvParams(mchAppConfigContext.getMchInfo().getIsvNo(), CS.IF_CODE.WXPAY);
             return WxServiceWrapper.buildWxServiceWrapper(wxParams);
-        }else{
+        } else {
 
-            WxpayNormalMchParams wxParams = (WxpayNormalMchParams)queryNormalMchParams(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId(), CS.IF_CODE.WXPAY);
+            WxpayNormalMchParams wxParams = (WxpayNormalMchParams) queryNormalMchParams(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId(), CS.IF_CODE.WXPAY);
             return WxServiceWrapper.buildWxServiceWrapper(wxParams);
         }
 
     }
 
-    public PaypalWrapper getPaypalWrapper(MchAppConfigContext mchAppConfigContext){
-        if(isCache()){
+    public PaypalWrapper getPaypalWrapper(MchAppConfigContext mchAppConfigContext) {
+        if (isCache()) {
             return
                     configContextService.getMchAppConfigContext(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId()).getPaypalWrapper();
         }
-        PppayNormalMchParams ppPayNormalMchParams = (PppayNormalMchParams) queryNormalMchParams(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId(), CS.IF_CODE.PPPAY);;
+        PppayNormalMchParams ppPayNormalMchParams = (PppayNormalMchParams) queryNormalMchParams(mchAppConfigContext.getMchNo(), mchAppConfigContext.getAppId(), CS.IF_CODE.PPPAY);
+        ;
         return PaypalWrapper.buildPaypalWrapper(ppPayNormalMchParams);
 
     }

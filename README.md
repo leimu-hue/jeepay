@@ -40,7 +40,8 @@
 
 # 项目介绍
 
-Jeepay是一套适合互联网企业使用的开源支付系统，支持多渠道服务商和普通商户模式。已对接`微信支付`，`支付宝`，`云闪付`官方接口，支持聚合码支付。
+Jeepay是一套适合互联网企业使用的开源支付系统，支持多渠道服务商和普通商户模式。已对接`微信支付`，`支付宝`，`云闪付`
+官方接口，支持聚合码支付。
 
 Jeepay使用`Spring Boot`和`Ant Design Vue`开发，集成`Spring Security`实现权限管理功能，是一套非常实用的web开发框架。
 
@@ -49,6 +50,7 @@ Jeepay使用`Spring Boot`和`Ant Design Vue`开发，集成`Spring Security`实�
 Jeepay = Jee + pay，是由原XxPay支付系统作者带领团队开发，“Jee”是公司计全科技名称的表示，pay表示支付。中文名称为计全支付，释为：计出万全、支付安全，让支付更加方便安全。
 
 ## 项目特点
+
 * 支持多渠道对接，多种支付产品
 * 已对接`微信`服务商和普通商户接口，支持`V2`和`V3`接口
 * 已对接`支付宝`服务商和普通商户接口，支持RSA和RSA2签名
@@ -88,7 +90,7 @@ Jeepay = Jee + pay，是由原XxPay支付系统作者带领团队开发，“Jee
 
 github 地址：https://github.com/jeequan/jeepay    
 gitee 地址：https://gitee.com/jeequan/jeepay   
-gitcode 地址：https://gitcode.com/jeequantech/jeepay   
+gitcode 地址：https://gitcode.com/jeequantech/jeepay
 
 ### 前端项目
 
@@ -108,17 +110,17 @@ gitcode 地址：https://gitcode.com/jeequantech/jeepay-ui
 
 ## 核心技术栈
 
-| 软件名称  | 描述 | 版本
-|---|---|---
-|Jdk | Java环境 | 17
-|Spring Boot | 开发框架 | 3.3.7
-|Redis | 分布式缓存 | 3.2.8 或 高版本
-|MySQL | 数据库 | 5.7.X 或 8.0 高版本
-|MQ | 消息中间件 | ActiveMQ 或 RabbitMQ 或 RocketMQ
-|Ant Design Vue | Ant Design的Vue实现，前端开发使用 | 4.2.6
-|MyBatis-Plus | MyBatis增强工具 | 3.4.2
-|WxJava | 微信开发Java SDK | 4.6.0
-|Hutool | Java工具类库 | 5.8.26
+| 软件名称           | 描述                      | 版本                             
+|----------------|-------------------------|--------------------------------
+| Jdk            | Java环境                  | 17                             
+| Spring Boot    | 开发框架                    | 3.3.7                          
+| Redis          | 分布式缓存                   | 3.2.8 或 高版本                    
+| MySQL          | 数据库                     | 5.7.X 或 8.0 高版本                
+| MQ             | 消息中间件                   | ActiveMQ 或 RabbitMQ 或 RocketMQ 
+| Ant Design Vue | Ant Design的Vue实现，前端开发使用 | 4.2.6                          
+| MyBatis-Plus   | MyBatis增强工具             | 3.4.2                          
+| WxJava         | 微信开发Java SDK            | 4.6.0                          
+| Hutool         | Java工具类库                | 5.8.26                         
 
 ## 项目结构
 
@@ -146,11 +148,14 @@ jeepay
 # 项目体验
 
 ## 支付体验
-- Jeepay支付流程体验：[https://www.jeequan.com/demo/jeepay_cashier.html](https://www.jeequan.com/demo/jeepay_cashier.html "Jeepay支付体验")
+
+-
+Jeepay支付流程体验：[https://www.jeequan.com/demo/jeepay_cashier.html](https://www.jeequan.com/demo/jeepay_cashier.html "Jeepay支付体验")
 
 ## 管理平台
-- Jeepay运营平台和商户系统演体验：[https://www.jeequan.com/doc/detail_84.html](https://www.jeequan.com/doc/detail_84.html "Jeepay支付系统体验")
 
+-
+Jeepay运营平台和商户系统演体验：[https://www.jeequan.com/doc/detail_84.html](https://www.jeequan.com/doc/detail_84.html "Jeepay支付系统体验")
 
 # 如何使用
 
@@ -167,21 +172,28 @@ sdk下载地址：https://doc.jeequan.com/#/integrate/open/api/116
 ## 部署安装
 
 ### 1、宝塔面板安装：
--  安装宝塔面板9.2.0及以上版本， Docker搜索 jeepay 一键安装
+
+- 安装宝塔面板9.2.0及以上版本， Docker搜索 jeepay 一键安装
 - 【宝塔安装教程】: https://doc.jeequan.com/#/integrate/open/dev/108
 
 ### 2、shell脚本一键安装：
 
 CentOS 安装脚本 （推荐Anolis OS 8.8）：
+
 ```lua
 yum install -y wget && wget -O install.sh https://gitee.com/jeequan/jeepay/raw/master/docs/install/install.sh && sh install.sh
 ```
+
 Ubuntu 安装脚本 （推荐 Ubuntu 22.04 64位）：
+
 ```lua
 apt update && apt-get -y install docker.io && apt-get -y install git && wget -O install.sh https://gitee.com/jeequan/jeepay/raw/master/docs/install/install.sh && sh install.sh
 ```
+
 视频教程：
-- 【jeepay开源聚合支付系统一键部署和测试教程】: [https://www.bilibili.com/video/BV17C411Y7EZ/?share_source=copy_web&vd_source=e48f1c20ae2c74b29a0b959a168914f2](https://www.bilibili.com/video/BV17C411Y7EZ/?share_source=copy_web&vd_source=e48f1c20ae2c74b29a0b959a168914f2"教程") 
+
+-
+【jeepay开源聚合支付系统一键部署和测试教程】: [https://www.bilibili.com/video/BV17C411Y7EZ/?share_source=copy_web&vd_source=e48f1c20ae2c74b29a0b959a168914f2](https://www.bilibili.com/video/BV17C411Y7EZ/?share_source=copy_web&vd_source=e48f1c20ae2c74b29a0b959a168914f2"教程")
 
 ## 项目文档
 
@@ -191,7 +203,8 @@ apt update && apt-get -y install docker.io && apt-get -y install git && wget -O 
 - 线上部署：[https://doc.jeequan.com/#/integrate/open/dev/111](https://doc.jeequan.com/#/integrate/open/dev/111)
 - 接口文档：[https://doc.jeequan.com/#/integrate/open/api/81](https://doc.jeequan.com/#/integrate/open/api/81)
 - 常见问题：[https://doc.jeequan.com/#/integrate/open/dev/107](https://doc.jeequan.com/#/integrate/open/dev/107)
-- 快速上手：[https://doc.jeequan.com/#/integrate/open/dev/109](https://doc.jeequan.com/#/integrate/open/dev/109 "Jeepay快速使用")
+-
+快速上手：[https://doc.jeequan.com/#/integrate/open/dev/109](https://doc.jeequan.com/#/integrate/open/dev/109 "Jeepay快速使用")
 
 # 功能模块
 
@@ -234,6 +247,7 @@ apt update && apt-get -y install docker.io && apt-get -y install git && wget -O 
 ![Jeepay演示界面](http://jeequan.oss-cn-beijing.aliyuncs.com/jeepay/img/yanshi/022.png "Jeepay演示界面")
 
 # 更多支持
+
 ***
 微信扫描下面二维码，关注官方公众号：计全科技，获取更多精彩内容。
 

@@ -48,23 +48,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* 转账api
-*
-* @author terrfly
-* @site https://www.jeequan.com
-* @date 2021/8/13 14:43
-*/
+ * 转账api
+ *
+ * @author terrfly
+ * @site https://www.jeequan.com
+ * @date 2021/8/13 14:43
+ */
 @Tag(name = "商户转账")
 @RestController
 @RequestMapping("/api/mchTransfers")
 public class MchTransferController extends CommonCtrl {
 
-    @Autowired private MchAppService mchAppService;
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
-    @Autowired private PayInterfaceDefineService payInterfaceDefineService;
-    @Autowired private SysConfigService sysConfigService;
+    @Autowired
+    private MchAppService mchAppService;
+    @Autowired
+    private PayInterfaceConfigService payInterfaceConfigService;
+    @Autowired
+    private PayInterfaceDefineService payInterfaceDefineService;
+    @Autowired
+    private SysConfigService sysConfigService;
 
-    /** 查询商户对应应用下支持的支付通道 **/
+    /**
+     * 查询商户对应应用下支持的支付通道
+     **/
     @Operation(summary = "查询商户对应应用下支持的支付通道")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -81,7 +87,7 @@ public class MchTransferController extends CommonCtrl {
                         .eq(PayInterfaceConfig::getInfoId, appId)
                         .eq(PayInterfaceConfig::getState, CS.PUB_USABLE)
         );
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return ApiRes.ok(new ArrayList<PayInterfaceDefine>());
         }
 
@@ -92,8 +98,9 @@ public class MchTransferController extends CommonCtrl {
     }
 
 
-
-    /** 获取渠道侧用户ID **/
+    /**
+     * 获取渠道侧用户ID
+     **/
     @Operation(summary = "获取渠道侧用户ID")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -107,7 +114,7 @@ public class MchTransferController extends CommonCtrl {
 
         String appId = getValStringRequired("appId");
         MchApp mchApp = mchAppService.getById(appId);
-        if(mchApp == null || mchApp.getState() != CS.PUB_USABLE || !mchApp.getMchNo().equals(getCurrentMchNo())){
+        if (mchApp == null || mchApp.getState() != CS.PUB_USABLE || !mchApp.getMchNo().equals(getCurrentMchNo())) {
             throw new BizException("商户应用不存在或不可用");
         }
 
@@ -131,7 +138,9 @@ public class MchTransferController extends CommonCtrl {
     }
 
 
-    /** 调起下单接口 **/
+    /**
+     * 调起下单接口
+     **/
     @Operation(summary = "调起转账接口")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -156,7 +165,7 @@ public class MchTransferController extends CommonCtrl {
         TransferOrderCreateReqModel model = getObject(TransferOrderCreateReqModel.class);
 
         MchApp mchApp = mchAppService.getById(model.getAppId());
-        if(mchApp == null || mchApp.getState() != CS.PUB_USABLE || !mchApp.getMchNo().equals(getCurrentMchNo()) ){
+        if (mchApp == null || mchApp.getState() != CS.PUB_USABLE || !mchApp.getMchNo().equals(getCurrentMchNo())) {
             throw new BizException("商户应用不存在或不可用");
         }
 
@@ -172,7 +181,7 @@ public class MchTransferController extends CommonCtrl {
 
         try {
             TransferOrderCreateResponse response = jeepayClient.execute(request);
-            if(response.getCode() != 0){
+            if (response.getCode() != 0) {
                 throw new BizException(response.getMsg());
             }
             return ApiRes.ok(response.get());

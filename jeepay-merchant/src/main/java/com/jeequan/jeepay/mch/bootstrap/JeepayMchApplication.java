@@ -17,7 +17,6 @@ package com.jeequan.jeepay.mch.bootstrap;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -42,12 +41,14 @@ import java.util.Arrays;
  */
 @SpringBootApplication
 @EnableScheduling
-@MapperScan("com.jeequan.jeepay.service.mapper")    //Mybatis mapper接口路径
-@ComponentScan(basePackages = "com.jeequan.jeepay.*")   //由于MainApplication没有在项目根目录， 需要配置basePackages属性使得成功扫描所有Spring组件；
+@MapperScan("com.jeequan.jeepay.service.mapper")
+@ComponentScan(basePackages = "com.jeequan.jeepay.*")
 @Configuration
 public class JeepayMchApplication {
 
-    /** main启动函数 **/
+    /**
+     * main启动函数
+     **/
     public static void main(String[] args) {
 
         //启动项目
@@ -56,9 +57,11 @@ public class JeepayMchApplication {
     }
 
 
-    /** fastJson 配置信息 **/
+    /**
+     * fastJson 配置信息
+     **/
     @Bean
-    public HttpMessageConverters fastJsonConfig(){
+    public HttpMessageConverters fastJsonConfig() {
 
         //新建fast-json转换器
         FastJsonHttpMessageConverterEx converter = new FastJsonHttpMessageConverterEx();
@@ -72,11 +75,13 @@ public class JeepayMchApplication {
         converter.setFastJsonConfig(config);
 
         //设置响应的 Content-Type
-        converter.setSupportedMediaTypes(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8}));
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
         return new HttpMessageConverters(converter);
     }
 
-    /** Mybatis plus 分页插件 **/
+    /**
+     * Mybatis plus 分页插件
+     **/
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

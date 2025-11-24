@@ -42,11 +42,11 @@ import java.util.Date;
 @TableName("t_pay_way")
 public class PayWay extends BaseModel implements Serializable {
 
-    public static final LambdaQueryWrapper<PayWay> gw(){
+    public static final LambdaQueryWrapper<PayWay> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 支付方式代码  例如： wxpay_jsapi

@@ -17,9 +17,8 @@ package com.jeequan.jeepay.pay.rqrs.payorder.payway;
 
 import com.jeequan.jeepay.core.constants.CS;
 import com.jeequan.jeepay.pay.rqrs.payorder.UnifiedOrderRQ;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 /*
  * 支付方式： UP_JSAPI
@@ -31,17 +30,21 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class UpJsapiOrderRQ extends UnifiedOrderRQ {
 
-    /** 支付宝用户ID **/
+    /**
+     * 支付宝用户ID
+     **/
     @NotBlank(message = "用户ID不能为空")
     private String userId;
 
-    /** 构造函数 **/
-    public UpJsapiOrderRQ(){
+    /**
+     * 构造函数
+     **/
+    public UpJsapiOrderRQ() {
         this.setWayCode(CS.PAY_WAY_CODE.UP_JSAPI);
     }
 
     @Override
-    public String getChannelUserId(){
+    public String getChannelUserId() {
         return this.userId;
     }
 

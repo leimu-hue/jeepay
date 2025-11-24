@@ -43,11 +43,11 @@ import java.util.Date;
 public class SysUser extends BaseModel {
 
     //gw
-    public static final LambdaQueryWrapper<SysUser> gw(){
+    public static final LambdaQueryWrapper<SysUser> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 系统用户ID

@@ -1,8 +1,11 @@
 1. 编译
+
 ```
 mvn install
 ```
+
 2. 构建镜像及推送镜像（不需要docker环境）
+
 ```
 export DOCKER_REGISTRY=registry.cn-beijing.aliyuncs.com
 export DOCKER_NAMESPACE=jeequan

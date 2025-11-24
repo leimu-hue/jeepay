@@ -28,10 +28,10 @@ import java.util.Date;
 @TableName("t_mch_division_receiver")
 public class MchDivisionReceiver implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     //gw
-    public static final LambdaQueryWrapper<MchDivisionReceiver> gw(){
+    public static final LambdaQueryWrapper<MchDivisionReceiver> gw() {
         return new LambdaQueryWrapper<>();
     }
 

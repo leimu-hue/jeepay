@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.jeequan.jeepay.core.entity.PayWay">
-        <id column="way_code" property="wayCode" />
-        <result column="way_name" property="wayName" />
-        <result column="created_at" property="createdAt" />
-        <result column="updated_at" property="updatedAt" />
+        <id column="way_code" property="wayCode"/>
+        <result column="way_name" property="wayName"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
     </resultMap>
 
 </mapper>

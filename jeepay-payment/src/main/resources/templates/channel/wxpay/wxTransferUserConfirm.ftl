@@ -6,10 +6,27 @@
     <title>用户确认收款</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.4.3/css/layui.css">
     <style>
-        .mainDiv1 {color:lightseagreen; text-align:center; margin-top: 50px;}
-        .mainDiv2 {text-align:center; margin-top: 10px;}
-        .mainDiv3 {text-align:center; margin-top: 200px;}
-        .mainDivTitle {text-align:center; margin-top: 20px; color:orangered }
+        .mainDiv1 {
+            color: lightseagreen;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .mainDiv2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .mainDiv3 {
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        .mainDivTitle {
+            text-align: center;
+            margin-top: 20px;
+            color: orangered
+        }
     </style>
 </head>
 <body>

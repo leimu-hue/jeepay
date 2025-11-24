@@ -62,17 +62,22 @@ import java.util.Set;
 @RequestMapping("/api/mch/payConfigs")
 public class MchPayInterfaceConfigController extends CommonCtrl {
 
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
-    @Autowired private MchInfoService mchInfoService;
-    @Autowired private MchAppService mchAppService;
-    @Autowired private SysConfigService sysConfigService;
-    @Autowired private IMQSender mqSender;
+    @Autowired
+    private PayInterfaceConfigService payInterfaceConfigService;
+    @Autowired
+    private MchInfoService mchInfoService;
+    @Autowired
+    private MchAppService mchAppService;
+    @Autowired
+    private SysConfigService sysConfigService;
+    @Autowired
+    private IMQSender mqSender;
 
     /**
      * @Author: ZhuXiao
      * @Description: 查询商户支付接口配置列表
      * @Date: 10:51 2021/5/13
-    */
+     */
     @Operation(summary = "查询应用支付接口配置列表")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -96,7 +101,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 根据 商户号、接口类型 获取商户参数配置
      * @Date: 10:54 2021/5/13
-    */
+     */
     @Operation(summary = "根据应用ID、接口类型 获取应用参数配置")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -133,7 +138,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 更新商户支付参数
      * @Date: 10:56 2021/5/13
-    */
+     */
     @Operation(summary = "更新应用支付参数")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -171,7 +176,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
 
             // 合并支付参数
             payInterfaceConfig.setIfParams(StringKit.marge(dbRecoed.getIfParams(), payInterfaceConfig.getIfParams()));
-        }else {
+        } else {
             payInterfaceConfig.setCreatedUid(userId);
             payInterfaceConfig.setCreatedBy(realName);
         }
@@ -185,7 +190,9 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
         return ApiRes.ok();
     }
 
-    /** 查询支付宝商户授权URL **/
+    /**
+     * 查询支付宝商户授权URL
+     **/
     @Operation(summary = "查询支付宝商户授权URL")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -212,26 +219,28 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
     }
 
 
-    /** 查询当前应用支持的支付接口 */
+    /**
+     * 查询当前应用支持的支付接口
+     */
     @Operation(summary = "查询当前应用支持的支付接口")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
             @Parameter(name = "appId", description = "应用ID", required = true)
     })
     @PreAuthorize("hasAuthority( 'ENT_DIVISION_RECEIVER_ADD' )")
-    @RequestMapping(value="ifCodes/{appId}", method = RequestMethod.GET)
+    @RequestMapping(value = "ifCodes/{appId}", method = RequestMethod.GET)
     public ApiRes<Set<String>> getIfCodeByAppId(@PathVariable("appId") String appId) {
 
-        if(mchAppService.count(MchApp.gw().eq(MchApp::getMchNo, getCurrentMchNo()).eq(MchApp::getAppId, appId)) <= 0){
+        if (mchAppService.count(MchApp.gw().eq(MchApp::getMchNo, getCurrentMchNo()).eq(MchApp::getAppId, appId)) <= 0) {
             throw new BizException("商户应用不存在");
         }
 
         Set<String> result = new HashSet<>();
 
         payInterfaceConfigService.list(PayInterfaceConfig.gw().select(PayInterfaceConfig::getIfCode)
-        .eq(PayInterfaceConfig::getState, CS.PUB_USABLE)
-        .eq(PayInterfaceConfig::getInfoId, appId)
-        .eq(PayInterfaceConfig::getInfoType, CS.INFO_TYPE_MCH_APP)
+                .eq(PayInterfaceConfig::getState, CS.PUB_USABLE)
+                .eq(PayInterfaceConfig::getInfoId, appId)
+                .eq(PayInterfaceConfig::getInfoType, CS.INFO_TYPE_MCH_APP)
         ).stream().forEach(r -> result.add(r.getIfCode()));
 
         return ApiRes.ok(result);

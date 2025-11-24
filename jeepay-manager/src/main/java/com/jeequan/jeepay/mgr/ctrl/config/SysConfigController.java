@@ -57,68 +57,70 @@ import java.util.Map;
 @RequestMapping("api/sysConfigs")
 public class SysConfigController extends CommonCtrl {
 
-	@Autowired private SysConfigService sysConfigService;
-	@Autowired private IMQSender mqSender;
+    @Autowired
+    private SysConfigService sysConfigService;
+    @Autowired
+    private IMQSender mqSender;
 
 
-	/**
-	 * @author: pangxiaoyu
-	 * @date: 2021/6/7 16:19
-	 * @describe: 分组下的配置
-	 */
-	@Operation(summary = "系统配置--查询分组下的配置",description = "")
-	@Parameters({
-			@Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-			@Parameter(name = "groupKey", description = "分组key")
-	})
-	@PreAuthorize("hasAuthority('ENT_SYS_CONFIG_INFO')")
-	@RequestMapping(value="/{groupKey}", method = RequestMethod.GET)
-	public ApiRes<List<SysConfig>> getConfigs(@PathVariable("groupKey") String groupKey) {
-		LambdaQueryWrapper<SysConfig> condition = SysConfig.gw();
-		condition.orderByAsc(SysConfig::getSortNum);
-		if(StringUtils.isNotEmpty(groupKey)){
-			condition.eq(SysConfig::getGroupKey, groupKey);
-		}
-		List<SysConfig> configList = sysConfigService.list(condition);
-		//返回数据
-		return ApiRes.ok(configList);
-	}
+    /**
+     * @author: pangxiaoyu
+     * @date: 2021/6/7 16:19
+     * @describe: 分组下的配置
+     */
+    @Operation(summary = "系统配置--查询分组下的配置", description = "")
+    @Parameters({
+            @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
+            @Parameter(name = "groupKey", description = "分组key")
+    })
+    @PreAuthorize("hasAuthority('ENT_SYS_CONFIG_INFO')")
+    @RequestMapping(value = "/{groupKey}", method = RequestMethod.GET)
+    public ApiRes<List<SysConfig>> getConfigs(@PathVariable("groupKey") String groupKey) {
+        LambdaQueryWrapper<SysConfig> condition = SysConfig.gw();
+        condition.orderByAsc(SysConfig::getSortNum);
+        if (StringUtils.isNotEmpty(groupKey)) {
+            condition.eq(SysConfig::getGroupKey, groupKey);
+        }
+        List<SysConfig> configList = sysConfigService.list(condition);
+        //返回数据
+        return ApiRes.ok(configList);
+    }
 
-	/**
-	 * @author: pangxiaoyu
-	 * @date: 2021/6/7 16:19
-	 * @describe: 系统配置修改
-	 */
-	@Operation(summary = "系统配置--修改分组下的配置",description = "")
-	@Parameters({
-			@Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-			@Parameter(name = "groupKey", description = "分组key", required = true),
-			@Parameter(name = "mchSiteUrl", description = "商户平台网址(不包含结尾/)"),
-			@Parameter(name = "mgrSiteUrl", description = "运营平台网址(不包含结尾/)"),
-			@Parameter(name = "ossPublicSiteUrl", description = "公共oss访问地址(不包含结尾/)"),
-			@Parameter(name = "paySiteUrl", description = "支付网关地址(不包含结尾/)")
-	})
-	@PreAuthorize("hasAuthority('ENT_SYS_CONFIG_EDIT')")
-	@MethodLog(remark = "系统配置修改")
-	@RequestMapping(value="/{groupKey}", method = RequestMethod.PUT)
-	public ApiRes update(@PathVariable("groupKey") String groupKey) {
-		JSONObject paramJSON = getReqParamJSON();
-		Map<String, String> updateMap = JSONObject.toJavaObject(paramJSON, Map.class);
-		int update = sysConfigService.updateByConfigKey(updateMap);
-		if(update <= 0) {
+    /**
+     * @author: pangxiaoyu
+     * @date: 2021/6/7 16:19
+     * @describe: 系统配置修改
+     */
+    @Operation(summary = "系统配置--修改分组下的配置", description = "")
+    @Parameters({
+            @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
+            @Parameter(name = "groupKey", description = "分组key", required = true),
+            @Parameter(name = "mchSiteUrl", description = "商户平台网址(不包含结尾/)"),
+            @Parameter(name = "mgrSiteUrl", description = "运营平台网址(不包含结尾/)"),
+            @Parameter(name = "ossPublicSiteUrl", description = "公共oss访问地址(不包含结尾/)"),
+            @Parameter(name = "paySiteUrl", description = "支付网关地址(不包含结尾/)")
+    })
+    @PreAuthorize("hasAuthority('ENT_SYS_CONFIG_EDIT')")
+    @MethodLog(remark = "系统配置修改")
+    @RequestMapping(value = "/{groupKey}", method = RequestMethod.PUT)
+    public ApiRes update(@PathVariable("groupKey") String groupKey) {
+        JSONObject paramJSON = getReqParamJSON();
+        Map<String, String> updateMap = JSONObject.toJavaObject(paramJSON, Map.class);
+        int update = sysConfigService.updateByConfigKey(updateMap);
+        if (update <= 0) {
             return ApiRes.fail(ApiCodeEnum.SYSTEM_ERROR, "更新失败");
         }
 
-		// 异步更新到MQ
-		SpringBeansUtil.getBean(SysConfigController.class).updateSysConfigMQ(groupKey);
+        // 异步更新到MQ
+        SpringBeansUtil.getBean(SysConfigController.class).updateSysConfigMQ(groupKey);
 
-		return ApiRes.ok();
-	}
+        return ApiRes.ok();
+    }
 
-	@Async
-	public void updateSysConfigMQ(String groupKey){
-		mqSender.send(ResetAppConfigMQ.build(groupKey));
-	}
+    @Async
+    public void updateSysConfigMQ(String groupKey) {
+        mqSender.send(ResetAppConfigMQ.build(groupKey));
+    }
 
 
 }

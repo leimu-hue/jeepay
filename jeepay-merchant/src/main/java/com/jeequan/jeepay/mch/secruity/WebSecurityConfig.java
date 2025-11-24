@@ -50,11 +50,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig{
+public class WebSecurityConfig {
 
-    @Autowired private UserDetailsService userDetailsService;
-    @Autowired private JeeAuthenticationEntryPoint unauthorizedHandler;
-    @Autowired private SystemYmlConfig systemYmlConfig;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private JeeAuthenticationEntryPoint unauthorizedHandler;
+    @Autowired
+    private SystemYmlConfig systemYmlConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -101,7 +104,7 @@ public class WebSecurityConfig{
                 )
                 .requestMatchers(
                         "/api/anon/**", //匿名访问接口
-                        "/webjars/**","/v3/api-docs/**", "/doc.html", "/knife4j/**", "/swagger-ui/**", "/swagger-resources/**" // swagger相关
+                        "/webjars/**", "/v3/api-docs/**", "/doc.html", "/knife4j/**", "/swagger-ui/**", "/swagger-resources/**" // swagger相关
                 );
     }
 
@@ -112,7 +115,7 @@ public class WebSecurityConfig{
 
     /**
      * 使用BCrypt强哈希函数 实现PasswordEncoder
-     * **/
+     **/
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -141,12 +144,14 @@ public class WebSecurityConfig{
         return new ProviderManager(authProvider);
     }
 
-    /** 允许跨域请求 **/
+    /**
+     * 允许跨域请求
+     **/
     @Bean
     public CorsFilter corsFilter() {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        if(systemYmlConfig.getAllowCors()){
+        if (systemYmlConfig.getAllowCors()) {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowCredentials(true);   //带上cookie信息
 //          config.addAllowedOrigin(CorsConfiguration.ALL);  //允许跨域的域名， *表示允许任何域名使用

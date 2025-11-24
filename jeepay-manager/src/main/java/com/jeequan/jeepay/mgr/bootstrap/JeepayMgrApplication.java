@@ -17,7 +17,6 @@ package com.jeequan.jeepay.mgr.bootstrap;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -34,12 +33,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.util.Arrays;
 
 /*
-* spring-boot 主启动程序
-*
-* @author terrfly
-* @site https://www.jeequan.com
-* @date 2019/11/7 15:19
-*/
+ * spring-boot 主启动程序
+ *
+ * @author terrfly
+ * @site https://www.jeequan.com
+ * @date 2019/11/7 15:19
+ */
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.jeequan.jeepay.service.mapper")    //Mybatis mapper接口路径
@@ -47,7 +46,9 @@ import java.util.Arrays;
 @Configuration
 public class JeepayMgrApplication {
 
-    /** main启动函数 **/
+    /**
+     * main启动函数
+     **/
     public static void main(String[] args) {
 
         //启动项目
@@ -56,9 +57,11 @@ public class JeepayMgrApplication {
     }
 
 
-    /** fastJson 配置信息 **/
+    /**
+     * fastJson 配置信息
+     **/
     @Bean
-    public HttpMessageConverters fastJsonConfig(){
+    public HttpMessageConverters fastJsonConfig() {
 
         //新建fast-json转换器
         FastJsonHttpMessageConverterEx converter = new FastJsonHttpMessageConverterEx();
@@ -76,14 +79,15 @@ public class JeepayMgrApplication {
         return new HttpMessageConverters(converter);
     }
 
-    /** Mybatis plus 分页插件 **/
+    /**
+     * Mybatis plus 分页插件
+     **/
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
-
 
 
     /**

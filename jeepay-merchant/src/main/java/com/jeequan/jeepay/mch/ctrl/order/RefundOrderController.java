@@ -48,13 +48,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/refundOrder")
 public class RefundOrderController extends CommonCtrl {
 
-    @Autowired private RefundOrderService refundOrderService;
+    @Autowired
+    private RefundOrderService refundOrderService;
 
     /**
      * @Author: ZhuXiao
      * @Description: 退款订单信息列表
      * @Date: 10:44 2021/5/13
-    */
+     */
     @Operation(summary = "退款订单信息列表")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -84,7 +85,7 @@ public class RefundOrderController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 退款订单信息
      * @Date: 10:44 2021/5/13
-    */
+     */
     @Operation(summary = "退款订单信息详情")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),

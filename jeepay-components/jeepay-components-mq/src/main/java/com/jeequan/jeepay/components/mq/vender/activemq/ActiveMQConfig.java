@@ -16,8 +16,10 @@
 package com.jeequan.jeepay.components.mq.vender.activemq;
 
 import com.jeequan.jeepay.components.mq.constant.MQSendTypeEnum;
-import com.jeequan.jeepay.components.mq.model.AbstractMQ;
 import com.jeequan.jeepay.components.mq.constant.MQVenderCS;
+import com.jeequan.jeepay.components.mq.model.AbstractMQ;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.Destination;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,47 +28,47 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.stereotype.Component;
 
-import jakarta.jms.ConnectionFactory;
-import jakarta.jms.Destination;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /*
-* activeMQ的配置项
-*
-* @author terrfly
-* @site https://www.jeequan.com
-* @date 2021/7/23 16:51
-*/
+ * activeMQ的配置项
+ *
+ * @author terrfly
+ * @site https://www.jeequan.com
+ * @date 2021/7/23 16:51
+ */
 @Component
 @ConditionalOnProperty(name = MQVenderCS.YML_VENDER_KEY, havingValue = MQVenderCS.ACTIVE_MQ)
 public class ActiveMQConfig {
 
     Map<String, Destination> map = new ConcurrentHashMap<>();
 
-    public Destination getDestination(AbstractMQ mqModel){
+    public Destination getDestination(AbstractMQ mqModel) {
 
-        if(map.get(mqModel.getMQName()) == null){
+        if (map.get(mqModel.getMQName()) == null) {
             this.init(mqModel.getMQName(), mqModel.getMQType());
         }
         return map.get(mqModel.getMQName());
     }
 
-    private synchronized void init(String mqName, MQSendTypeEnum mqSendTypeEnum){
+    private synchronized void init(String mqName, MQSendTypeEnum mqSendTypeEnum) {
 
-        if(mqSendTypeEnum == MQSendTypeEnum.QUEUE){
-            map.put(mqName, new ActiveMQQueue(mqName) );
-        }else{
-            map.put(mqName, new ActiveMQTopic(mqName) );
+        if (mqSendTypeEnum == MQSendTypeEnum.QUEUE) {
+            map.put(mqName, new ActiveMQQueue(mqName));
+        } else {
+            map.put(mqName, new ActiveMQTopic(mqName));
         }
     }
 
 
     public static final String TOPIC_LISTENER_CONTAINER = "jmsTopicListenerContainer";
 
-    /** 新增jmsListenerContainer, 用于接收topic类型的消息 **/
+    /**
+     * 新增jmsListenerContainer, 用于接收topic类型的消息
+     **/
     @Bean
-    public JmsListenerContainerFactory<?> jmsTopicListenerContainer(ConnectionFactory factory){
+    public JmsListenerContainerFactory<?> jmsTopicListenerContainer(ConnectionFactory factory) {
         DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
         bean.setPubSubDomain(true);
         bean.setConnectionFactory(factory);

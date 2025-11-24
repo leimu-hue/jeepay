@@ -33,9 +33,9 @@ public class PayOrderDivisionRecord implements Serializable {
     public static final byte STATE_FAIL = 2; // 分账失败（明确失败）
     public static final byte STATE_ACCEPT = 3; // 分账已受理（上游受理）
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-    public static final LambdaQueryWrapper<PayOrderDivisionRecord> gw(){
+    public static final LambdaQueryWrapper<PayOrderDivisionRecord> gw() {
         return new LambdaQueryWrapper<>();
     }
 

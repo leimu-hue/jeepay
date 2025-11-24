@@ -44,11 +44,11 @@ import java.util.Date;
 @TableName("t_mch_pay_passage")
 public class MchPayPassage extends BaseModel implements Serializable {
 
-    public static final LambdaQueryWrapper<MchPayPassage> gw(){
+    public static final LambdaQueryWrapper<MchPayPassage> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * ID

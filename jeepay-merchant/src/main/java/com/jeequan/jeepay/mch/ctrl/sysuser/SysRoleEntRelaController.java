@@ -58,57 +58,65 @@ import java.util.List;
 @RequestMapping("api/sysRoleEntRelas")
 public class SysRoleEntRelaController extends CommonCtrl {
 
-	@Autowired private SysRoleEntRelaService sysRoleEntRelaService;
-	@Autowired private SysUserRoleRelaService sysUserRoleRelaService;
-	@Autowired private SysRoleService sysRoleService;
-	@Autowired private AuthService authService;
+    @Autowired
+    private SysRoleEntRelaService sysRoleEntRelaService;
+    @Autowired
+    private SysUserRoleRelaService sysUserRoleRelaService;
+    @Autowired
+    private SysRoleService sysRoleService;
+    @Autowired
+    private AuthService authService;
 
-	/** list */
-	@Operation(summary = "关联关系--角色-权限关联信息列表")
-	@Parameters({
-			@Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-			@Parameter(name = "pageNumber", description = "分页页码"),
-			@Parameter(name = "pageSize", description = "分页条数（-1时查全部数据）"),
-			@Parameter(name = "roleId", description = "角色ID, ROLE_开头")
-	})
-	@PreAuthorize("hasAuthority( 'ENT_UR_ROLE_DIST' )")
-	@RequestMapping(value="", method = RequestMethod.GET)
-	public ApiPageRes<SysRoleEntRela> list() {
+    /**
+     * list
+     */
+    @Operation(summary = "关联关系--角色-权限关联信息列表")
+    @Parameters({
+            @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
+            @Parameter(name = "pageNumber", description = "分页页码"),
+            @Parameter(name = "pageSize", description = "分页条数（-1时查全部数据）"),
+            @Parameter(name = "roleId", description = "角色ID, ROLE_开头")
+    })
+    @PreAuthorize("hasAuthority( 'ENT_UR_ROLE_DIST' )")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ApiPageRes<SysRoleEntRela> list() {
 
-		SysRoleEntRela queryObject = getObject(SysRoleEntRela.class);
+        SysRoleEntRela queryObject = getObject(SysRoleEntRela.class);
 
-		LambdaQueryWrapper<SysRoleEntRela> condition = SysRoleEntRela.gw();
+        LambdaQueryWrapper<SysRoleEntRela> condition = SysRoleEntRela.gw();
 
-		if(queryObject.getRoleId() != null){
-			condition.eq(SysRoleEntRela::getRoleId, queryObject.getRoleId());
-		}
+        if (queryObject.getRoleId() != null) {
+            condition.eq(SysRoleEntRela::getRoleId, queryObject.getRoleId());
+        }
 
-		IPage<SysRoleEntRela> pages = sysRoleEntRelaService.page(getIPage(true), condition);
+        IPage<SysRoleEntRela> pages = sysRoleEntRelaService.page(getIPage(true), condition);
 
-		return ApiPageRes.pages(pages);
-	}
+        return ApiPageRes.pages(pages);
+    }
 
-	/** 重置角色权限关联信息 */
-	@PreAuthorize("hasAuthority( 'ENT_UR_ROLE_DIST' )")
-	@RequestMapping(value="relas/{roleId}", method = RequestMethod.POST)
-	public ApiRes relas(@PathVariable("roleId") String roleId) {
+    /**
+     * 重置角色权限关联信息
+     */
+    @PreAuthorize("hasAuthority( 'ENT_UR_ROLE_DIST' )")
+    @RequestMapping(value = "relas/{roleId}", method = RequestMethod.POST)
+    public ApiRes relas(@PathVariable("roleId") String roleId) {
 
-		SysRole sysRole = sysRoleService.getOne(SysRole.gw().eq(SysRole::getRoleId, roleId).eq(SysRole::getBelongInfoId, getCurrentMchNo()));
-		if (sysRole == null) {
+        SysRole sysRole = sysRoleService.getOne(SysRole.gw().eq(SysRole::getRoleId, roleId).eq(SysRole::getBelongInfoId, getCurrentMchNo()));
+        if (sysRole == null) {
             throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
         }
 
-		List<String> entIdList = JSONArray.parseArray(getValStringRequired("entIdListStr"), String.class);
+        List<String> entIdList = JSONArray.parseArray(getValStringRequired("entIdListStr"), String.class);
 
-		sysRoleEntRelaService.resetRela(roleId, entIdList);
+        sysRoleEntRelaService.resetRela(roleId, entIdList);
 
-		List<Long> sysUserIdList = new ArrayList<>();
-		sysUserRoleRelaService.list(SysUserRoleRela.gw().eq(SysUserRoleRela::getRoleId, roleId)).stream().forEach(item -> sysUserIdList.add(item.getUserId()));
+        List<Long> sysUserIdList = new ArrayList<>();
+        sysUserRoleRelaService.list(SysUserRoleRela.gw().eq(SysUserRoleRela::getRoleId, roleId)).stream().forEach(item -> sysUserIdList.add(item.getUserId()));
 
-		//查询到该角色的人员， 将redis更新
-		authService.refAuthentication(sysUserIdList);
+        //查询到该角色的人员， 将redis更新
+        authService.refAuthentication(sysUserIdList);
 
-		return ApiRes.ok();
-	}
+        return ApiRes.ok();
+    }
 
 }

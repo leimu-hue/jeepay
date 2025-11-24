@@ -42,11 +42,11 @@ import java.util.Date;
 public class SysRole implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<SysRole> gw(){
+    public static final LambdaQueryWrapper<SysRole> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 角色ID, ROLE_开头

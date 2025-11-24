@@ -15,17 +15,16 @@
  */
 package com.jeequan.jeepay.mch.websocket.server;
 
-import com.alibaba.fastjson.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
@@ -74,7 +73,7 @@ public class WsPayOrderServer {
             this.session = session;
 
             Set<WsPayOrderServer> wsServerSet = wsOrderIdMap.get(payOrderId);
-            if(wsServerSet == null) {
+            if (wsServerSet == null) {
                 wsServerSet = new CopyOnWriteArraySet<>();
             }
             wsServerSet.add(this);
@@ -96,7 +95,7 @@ public class WsPayOrderServer {
 
         Set wsSet = wsOrderIdMap.get(this.payOrderId);
         wsSet.remove(this);
-        if(wsSet.isEmpty()) {
+        if (wsSet.isEmpty()) {
             wsOrderIdMap.remove(this.payOrderId);
         }
 
@@ -123,6 +122,7 @@ public class WsPayOrderServer {
     /**
      * 根据订单ID,推送消息
      * 捕捉所有的异常，避免影响业务。
+     *
      * @param payOrderId
      */
     public static void sendMsgByOrderId(String payOrderId, String msg) {
@@ -132,9 +132,9 @@ public class WsPayOrderServer {
 
 
             Set<WsPayOrderServer> wsSet = wsOrderIdMap.get(payOrderId);
-            if(wsSet == null || wsSet.isEmpty()){
+            if (wsSet == null || wsSet.isEmpty()) {
                 logger.info("payOrderId[{}] 无ws监听客户端", payOrderId);
-                return ;
+                return;
             }
 
             for (WsPayOrderServer item : wsSet) {

@@ -54,11 +54,11 @@ public class MchNotifyRecord extends BaseModel implements Serializable {
     public static final byte STATE_FAIL = 3;
 
     //gw
-    public static final LambdaQueryWrapper<MchNotifyRecord> gw(){
+    public static final LambdaQueryWrapper<MchNotifyRecord> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 商户通知记录ID

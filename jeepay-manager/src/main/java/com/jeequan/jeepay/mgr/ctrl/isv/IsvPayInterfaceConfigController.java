@@ -53,20 +53,22 @@ import java.util.List;
 @RequestMapping("/api/isv/payConfigs")
 public class IsvPayInterfaceConfigController extends CommonCtrl {
 
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
-    @Autowired private IMQSender mqSender;
+    @Autowired
+    private PayInterfaceConfigService payInterfaceConfigService;
+    @Autowired
+    private IMQSender mqSender;
 
-   /**
-    * @Author: ZhuXiao
-    * @Description: 查询服务商支付接口配置列表
-    * @Date: 16:45 2021/4/27
-   */
-   @Operation(summary = "查询服务商支付接口配置列表", description = "")
-   @Parameters({
-           @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-           @Parameter(name = "isvNo", description = "服务商号", required = true)
-   })
-   @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_LIST')")
+    /**
+     * @Author: ZhuXiao
+     * @Description: 查询服务商支付接口配置列表
+     * @Date: 16:45 2021/4/27
+     */
+    @Operation(summary = "查询服务商支付接口配置列表", description = "")
+    @Parameters({
+            @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
+            @Parameter(name = "isvNo", description = "服务商号", required = true)
+    })
+    @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_LIST')")
     @GetMapping
     public ApiRes<List<PayInterfaceDefine>> list() {
 
@@ -149,7 +151,7 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
 
             // 合并支付参数
             payInterfaceConfig.setIfParams(StringKit.marge(dbRecoed.getIfParams(), payInterfaceConfig.getIfParams()));
-        }else {
+        } else {
             payInterfaceConfig.setCreatedUid(userId);
             payInterfaceConfig.setCreatedBy(realName);
         }

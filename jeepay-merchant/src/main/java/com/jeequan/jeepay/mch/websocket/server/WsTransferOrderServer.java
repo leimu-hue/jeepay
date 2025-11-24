@@ -73,7 +73,7 @@ public class WsTransferOrderServer {
             this.session = session;
 
             Set<WsTransferOrderServer> wsServerSet = wsOrderIdMap.get(transferId);
-            if(wsServerSet == null) {
+            if (wsServerSet == null) {
                 wsServerSet = new CopyOnWriteArraySet<>();
             }
             wsServerSet.add(this);
@@ -95,7 +95,7 @@ public class WsTransferOrderServer {
 
         Set wsSet = wsOrderIdMap.get(this.transferId);
         wsSet.remove(this);
-        if(wsSet.isEmpty()) {
+        if (wsSet.isEmpty()) {
             wsOrderIdMap.remove(this.transferId);
         }
 
@@ -122,6 +122,7 @@ public class WsTransferOrderServer {
     /**
      * 根据转账订单ID,推送消息
      * 捕捉所有的异常，避免影响业务。
+     *
      * @param transferId
      */
     public static void sendMsgBytransferId(String transferId, String msg) {
@@ -131,9 +132,9 @@ public class WsTransferOrderServer {
 
 
             Set<WsTransferOrderServer> wsSet = wsOrderIdMap.get(transferId);
-            if(wsSet == null || wsSet.isEmpty()){
+            if (wsSet == null || wsSet.isEmpty()) {
                 logger.info("transferId[{}] 无ws监听客户端", transferId);
-                return ;
+                return;
             }
 
             for (WsTransferOrderServer item : wsSet) {

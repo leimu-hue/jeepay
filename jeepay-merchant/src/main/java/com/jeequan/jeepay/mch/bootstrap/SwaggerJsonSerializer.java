@@ -47,7 +47,7 @@ public class SwaggerJsonSerializer implements ObjectSerializer, ObjectDeserializ
                 out.write(result);
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             out.writeByteArray(byteArr);
         }
     }

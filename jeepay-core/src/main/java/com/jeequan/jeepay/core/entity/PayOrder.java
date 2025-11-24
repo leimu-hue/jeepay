@@ -43,11 +43,11 @@ import java.util.Date;
 @TableName("t_pay_order")
 public class PayOrder extends BaseModel implements Serializable {
 
-    public static final LambdaQueryWrapper<PayOrder> gw(){
+    public static final LambdaQueryWrapper<PayOrder> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
 
     public static final byte STATE_INIT = 0; //订单生成

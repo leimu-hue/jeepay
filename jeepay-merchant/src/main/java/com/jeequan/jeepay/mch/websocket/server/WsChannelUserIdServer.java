@@ -15,16 +15,16 @@
  */
 package com.jeequan.jeepay.mch.websocket.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
@@ -73,7 +73,7 @@ public class WsChannelUserIdServer {
             this.session = session;
 
             Set<WsChannelUserIdServer> wsServerSet = wsAppIdMap.get(appId);
-            if(wsServerSet == null) {
+            if (wsServerSet == null) {
                 wsServerSet = new CopyOnWriteArraySet<>();
             }
             wsServerSet.add(this);
@@ -95,7 +95,7 @@ public class WsChannelUserIdServer {
 
         Set wsSet = wsAppIdMap.get(this.appId);
         wsSet.remove(this);
-        if(wsSet.isEmpty()) {
+        if (wsSet.isEmpty()) {
             wsAppIdMap.remove(this.appId);
         }
 
@@ -122,6 +122,7 @@ public class WsChannelUserIdServer {
     /**
      * 根据订单ID,推送消息
      * 捕捉所有的异常，避免影响业务。
+     *
      * @param appId
      */
     public static void sendMsgByAppAndCid(String appId, String cid, String msg) {
@@ -131,13 +132,13 @@ public class WsChannelUserIdServer {
 
 
             Set<WsChannelUserIdServer> wsSet = wsAppIdMap.get(appId);
-            if(wsSet == null || wsSet.isEmpty()){
+            if (wsSet == null || wsSet.isEmpty()) {
                 logger.info("appId[{}] 无ws监听客户端", appId);
-                return ;
+                return;
             }
 
             for (WsChannelUserIdServer item : wsSet) {
-                if(!cid.equals(item.cid)){
+                if (!cid.equals(item.cid)) {
                     continue;
                 }
                 try {

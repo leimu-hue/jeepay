@@ -44,11 +44,11 @@ import java.util.Date;
 public class MchInfo extends BaseModel implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<MchInfo> gw(){
+    public static final LambdaQueryWrapper<MchInfo> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     public static final byte TYPE_NORMAL = 1; //商户类型： 1-普通商户
     public static final byte TYPE_ISVSUB = 2; //商户类型： 2-特约商户

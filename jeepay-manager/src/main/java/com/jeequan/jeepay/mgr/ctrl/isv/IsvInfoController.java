@@ -52,8 +52,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/isvInfo")
 public class IsvInfoController extends CommonCtrl {
 
-    @Autowired private IsvInfoService isvInfoService;
-    @Autowired private IMQSender mqSender;
+    @Autowired
+    private IsvInfoService isvInfoService;
+    @Autowired
+    private IMQSender mqSender;
 
     /**
      * @author: pangxiaoyu
@@ -70,7 +72,7 @@ public class IsvInfoController extends CommonCtrl {
             @Parameter(name = "state", description = "状态: 0-停用, 1-正常")
     })
     @PreAuthorize("hasAuthority('ENT_ISV_LIST')")
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ApiPageRes<IsvInfo> list() {
         IsvInfo isvInfo = getObject(IsvInfo.class);
         LambdaQueryWrapper<IsvInfo> wrapper = IsvInfo.gw();
@@ -107,7 +109,7 @@ public class IsvInfoController extends CommonCtrl {
     })
     @PreAuthorize("hasAuthority('ENT_ISV_INFO_ADD')")
     @MethodLog(remark = "新增服务商")
-    @RequestMapping(value="", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ApiRes add() {
         IsvInfo isvInfo = getObject(IsvInfo.class);
         String isvNo = "V" + DateUtil.currentSeconds();
@@ -133,7 +135,7 @@ public class IsvInfoController extends CommonCtrl {
     })
     @PreAuthorize("hasAuthority('ENT_ISV_INFO_DEL')")
     @MethodLog(remark = "删除服务商")
-    @RequestMapping(value="/{isvNo}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{isvNo}", method = RequestMethod.DELETE)
     public ApiRes delete(@PathVariable("isvNo") String isvNo) {
         isvInfoService.removeByIsvNo(isvNo);
 
@@ -161,7 +163,7 @@ public class IsvInfoController extends CommonCtrl {
     })
     @PreAuthorize("hasAuthority('ENT_ISV_INFO_EDIT')")
     @MethodLog(remark = "更新服务商信息")
-    @RequestMapping(value="/{isvNo}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{isvNo}", method = RequestMethod.PUT)
     public ApiRes update(@PathVariable("isvNo") String isvNo) {
         IsvInfo isvInfo = getObject(IsvInfo.class);
         isvInfo.setIsvNo(isvNo);
@@ -184,10 +186,10 @@ public class IsvInfoController extends CommonCtrl {
     @Operation(summary = "查看服务商信息", description = "")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-            @Parameter(name= "isvNo", description = "服务商编号", required = true)
+            @Parameter(name = "isvNo", description = "服务商编号", required = true)
     })
     @PreAuthorize("hasAnyAuthority('ENT_ISV_INFO_VIEW', 'ENT_ISV_INFO_EDIT')")
-    @RequestMapping(value="/{isvNo}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{isvNo}", method = RequestMethod.GET)
     public ApiRes<IsvInfo> detail(@PathVariable("isvNo") String isvNo) {
         IsvInfo isvInfo = isvInfoService.getById(isvNo);
         if (isvInfo == null) {

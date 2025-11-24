@@ -52,8 +52,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/mchNotify")
 public class MchNotifyController extends CommonCtrl {
 
-    @Autowired private MchNotifyRecordService mchNotifyService;
-    @Autowired private IMQSender mqSender;
+    @Autowired
+    private MchNotifyRecordService mchNotifyService;
+    @Autowired
+    private IMQSender mqSender;
 
     /**
      * @author: pangxiaoyu
@@ -76,7 +78,7 @@ public class MchNotifyController extends CommonCtrl {
             @Parameter(name = "orderType", description = "订单类型:1-支付,2-退款")
     })
     @PreAuthorize("hasAuthority('ENT_NOTIFY_LIST')")
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ApiPageRes<MchNotifyRecord> list() {
 
         MchNotifyRecord mchNotify = getObject(MchNotifyRecord.class);
@@ -129,7 +131,7 @@ public class MchNotifyController extends CommonCtrl {
             @Parameter(name = "notifyId", description = "商户通知记录ID", required = true)
     })
     @PreAuthorize("hasAuthority('ENT_MCH_NOTIFY_VIEW')")
-    @RequestMapping(value="/{notifyId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{notifyId}", method = RequestMethod.GET)
     public ApiRes<MchNotifyRecord> detail(@PathVariable("notifyId") String notifyId) {
         MchNotifyRecord mchNotify = mchNotifyService.getById(notifyId);
         if (mchNotify == null) {
@@ -138,18 +140,18 @@ public class MchNotifyController extends CommonCtrl {
         return ApiRes.ok(mchNotify);
     }
 
-   /*
-    * 功能描述: 商户通知重发操作
-    * @Author: terrfly
-    * @Date: 2021/6/21 17:41
-    */
+    /*
+     * 功能描述: 商户通知重发操作
+     * @Author: terrfly
+     * @Date: 2021/6/21 17:41
+     */
     @Operation(summary = "商户通知重发")
     @Parameters({
-           @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-           @Parameter(name = "notifyId", description = "商户通知记录ID", required = true)
+            @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
+            @Parameter(name = "notifyId", description = "商户通知记录ID", required = true)
     })
     @PreAuthorize("hasAuthority('ENT_MCH_NOTIFY_RESEND')")
-    @RequestMapping(value="resend/{notifyId}", method = RequestMethod.POST)
+    @RequestMapping(value = "resend/{notifyId}", method = RequestMethod.POST)
     public ApiRes<MchNotifyRecord> resend(@PathVariable("notifyId") Long notifyId) {
         MchNotifyRecord mchNotify = mchNotifyService.getById(notifyId);
         if (mchNotify == null) {

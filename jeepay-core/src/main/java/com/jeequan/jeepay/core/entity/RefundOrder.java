@@ -47,11 +47,11 @@ public class RefundOrder extends BaseModel {
     public static final byte STATE_FAIL = 3; //退款失败
     public static final byte STATE_CLOSED = 4; //退款任务关闭
 
-    public static final LambdaQueryWrapper<RefundOrder> gw(){
+    public static final LambdaQueryWrapper<RefundOrder> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 退款订单号（支付系统生成订单号）

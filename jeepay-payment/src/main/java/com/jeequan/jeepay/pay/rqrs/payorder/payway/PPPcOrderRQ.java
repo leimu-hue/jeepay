@@ -2,9 +2,8 @@ package com.jeequan.jeepay.pay.rqrs.payorder.payway;
 
 import com.jeequan.jeepay.core.constants.CS;
 import com.jeequan.jeepay.pay.rqrs.payorder.CommonPayDataRQ;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 /**
  * none.

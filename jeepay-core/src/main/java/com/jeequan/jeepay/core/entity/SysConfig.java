@@ -44,11 +44,11 @@ import java.util.Date;
 public class SysConfig extends BaseModel implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<SysConfig> gw(){
+    public static final LambdaQueryWrapper<SysConfig> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 配置KEY

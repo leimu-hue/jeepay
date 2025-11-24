@@ -23,6 +23,7 @@ import com.jeequan.jeepay.core.entity.SysLog;
 import com.jeequan.jeepay.core.exception.BizException;
 import com.jeequan.jeepay.core.model.security.JeeUserDetails;
 import com.jeequan.jeepay.service.impl.SysLogService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -38,7 +39,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.concurrent.Executors;
@@ -61,7 +61,8 @@ public class MethodLogAop {
     @Autowired
     private SysLogService sysLogService;
 
-    @Autowired private RequestKitBean requestKitBean;
+    @Autowired
+    private RequestKitBean requestKitBean;
 
     /**
      * 异步处理线程池
@@ -72,10 +73,12 @@ public class MethodLogAop {
      * 切点
      */
     @Pointcut("@annotation(com.jeequan.jeepay.core.aop.MethodLog)")
-    public void methodCachePointcut() { }
+    public void methodCachePointcut() {
+    }
 
     /**
      * 切面
+     *
      * @param point
      * @return
      * @throws Throwable
@@ -104,8 +107,8 @@ public class MethodLogAop {
      * @date: 2021/6/7 14:04
      * @describe: 记录异常操作请求信息
      */
-    @AfterThrowing(pointcut = "methodCachePointcut()", throwing="e")
-    public void doException(JoinPoint joinPoint, Throwable e) throws Exception{
+    @AfterThrowing(pointcut = "methodCachePointcut()", throwing = "e")
+    public void doException(JoinPoint joinPoint, Throwable e) throws Exception {
         final SysLog sysLog = new SysLog();
         // 基础日志信息
         setBaseLogInfo(joinPoint, sysLog, JeeUserDetails.getCurrentUserDetails());
@@ -115,6 +118,7 @@ public class MethodLogAop {
 
     /**
      * 获取方法中的中文备注
+     *
      * @param joinPoint
      * @return
      * @throws Exception
@@ -122,7 +126,7 @@ public class MethodLogAop {
     public static String getAnnotationRemark(JoinPoint joinPoint) throws Exception {
 
         Signature sig = joinPoint.getSignature();
-        Method m = joinPoint.getTarget().getClass().getMethod(joinPoint.getSignature().getName(),  ((MethodSignature) sig).getParameterTypes());
+        Method m = joinPoint.getTarget().getClass().getMethod(joinPoint.getSignature().getName(), ((MethodSignature) sig).getParameterTypes());
 
         MethodLog methodCache = m.getAnnotation(MethodLog.class);
         if (methodCache != null) {
@@ -141,7 +145,7 @@ public class MethodLogAop {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         //请求参数
-        sysLog.setOptReqParam( requestKitBean.getReqParamJSON().toJSONString() );
+        sysLog.setOptReqParam(requestKitBean.getReqParamJSON().toJSONString());
 
         //注解备注
         sysLog.setMethodRemark(getAnnotationRemark(joinPoint));

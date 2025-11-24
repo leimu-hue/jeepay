@@ -51,15 +51,18 @@ import java.util.List;
 @RequestMapping("api/payIfDefines")
 public class PayInterfaceDefineController extends CommonCtrl {
 
-    @Autowired private PayInterfaceDefineService payInterfaceDefineService;
-    @Autowired private PayOrderService payOrderService;
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
+    @Autowired
+    private PayInterfaceDefineService payInterfaceDefineService;
+    @Autowired
+    private PayOrderService payOrderService;
+    @Autowired
+    private PayInterfaceConfigService payInterfaceConfigService;
 
     /**
      * @Author: ZhuXiao
      * @Description: list
      * @Date: 15:51 2021/4/27
-    */
+     */
     @Operation(summary = "支付接口--列表")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER)
@@ -79,7 +82,7 @@ public class PayInterfaceDefineController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: detail
      * @Date: 15:51 2021/4/27
-    */
+     */
     @Operation(summary = "支付接口--详情")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -95,7 +98,7 @@ public class PayInterfaceDefineController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: add
      * @Date: 15:51 2021/4/27
-    */
+     */
     @Operation(summary = "支付接口--新增")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -139,7 +142,7 @@ public class PayInterfaceDefineController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: update
      * @Date: 15:51 2021/4/27
-    */
+     */
     @Operation(summary = "支付接口--更新")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -185,7 +188,7 @@ public class PayInterfaceDefineController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: delete
      * @Date: 15:52 2021/4/27
-    */
+     */
     @Operation(summary = "支付接口--删除")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),

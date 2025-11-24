@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.jeequan.jeepay.core.entity.MchDivisionReceiverGroup">
-        <id column="receiver_group_id" property="receiverGroupId" />
-        <result column="receiver_group_name" property="receiverGroupName" />
-        <result column="mch_no" property="mchNo" />
-        <result column="auto_division_flag" property="autoDivisionFlag" />
-        <result column="created_uid" property="createdUid" />
-        <result column="created_by" property="createdBy" />
-        <result column="created_at" property="createdAt" />
-        <result column="updated_at" property="updatedAt" />
+        <id column="receiver_group_id" property="receiverGroupId"/>
+        <result column="receiver_group_name" property="receiverGroupName"/>
+        <result column="mch_no" property="mchNo"/>
+        <result column="auto_division_flag" property="autoDivisionFlag"/>
+        <result column="created_uid" property="createdUid"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
     </resultMap>
 
 </mapper>

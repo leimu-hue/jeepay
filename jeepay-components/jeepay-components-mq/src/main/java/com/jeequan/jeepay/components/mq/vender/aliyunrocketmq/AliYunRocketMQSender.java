@@ -36,9 +36,13 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(name = MQVenderCS.YML_VENDER_KEY, havingValue = MQVenderCS.ALIYUN_ROCKET_MQ)
 public class AliYunRocketMQSender implements IMQSender {
 
-    /** 最大延迟24小时 */
+    /**
+     * 最大延迟24小时
+     */
     private static final int MAX_DELAY_TIME = 60 * 60 * 24;
-    /** 最小延迟1秒 */
+    /**
+     * 最小延迟1秒
+     */
     private static final int MIN_DELAY_TIME = 1;
 
     @Autowired

@@ -42,11 +42,11 @@ import java.util.Date;
 @TableName("t_sys_log")
 public class SysLog implements Serializable {
 
-    public static final LambdaQueryWrapper<SysLog> gw(){
+    public static final LambdaQueryWrapper<SysLog> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * id

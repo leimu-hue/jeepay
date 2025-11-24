@@ -60,17 +60,21 @@ import java.util.List;
 @RequestMapping("/api/mch/payPassages")
 public class MchPayPassageConfigController extends CommonCtrl {
 
-    @Autowired private MchPayPassageService mchPayPassageService;
-    @Autowired private PayWayService payWayService;
-    @Autowired private MchInfoService mchInfoService;
-    @Autowired private MchAppService mchAppService;
+    @Autowired
+    private MchPayPassageService mchPayPassageService;
+    @Autowired
+    private PayWayService payWayService;
+    @Autowired
+    private MchInfoService mchInfoService;
+    @Autowired
+    private MchAppService mchAppService;
 
 
     /**
      * @Author: ZhuXiao
      * @Description: 查询支付方式列表，并添加是否配置支付通道状态
      * @Date: 15:31 2021/5/10
-    */
+     */
     @Operation(summary = "查询支付方式列表")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -126,11 +130,11 @@ public class MchPayPassageConfigController extends CommonCtrl {
     }
 
     /**
+     * @return
      * @Author: ZhuXiao
      * @Description: 根据appId、支付方式查询可用的支付接口列表
      * @Date: 17:55 2021/5/8
-     * @return
-    */
+     */
     @Operation(summary = "根据[应用ID]、[支付方式代码]查询可用的支付接口列表")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -161,7 +165,7 @@ public class MchPayPassageConfigController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 应用支付通道配置
      * @Date: 17:36 2021/5/8
-    */
+     */
     @Operation(summary = "更新商户支付通道")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -186,7 +190,7 @@ public class MchPayPassageConfigController extends CommonCtrl {
 
             mchPayPassageService.saveOrUpdateBatchSelf(mchPayPassageList, mchApp.getMchNo());
             return ApiRes.ok();
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ApiRes.fail(ApiCodeEnum.SYSTEM_ERROR);
         }
     }

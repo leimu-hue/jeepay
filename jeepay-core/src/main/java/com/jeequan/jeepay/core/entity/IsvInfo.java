@@ -21,7 +21,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.jeequan.jeepay.core.model.BaseModel;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -45,11 +44,11 @@ import java.util.Date;
 public class IsvInfo extends BaseModel implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<IsvInfo> gw(){
+    public static final LambdaQueryWrapper<IsvInfo> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 服务商号

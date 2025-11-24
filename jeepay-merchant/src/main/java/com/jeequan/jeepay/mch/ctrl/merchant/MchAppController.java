@@ -48,14 +48,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/mchApps")
 public class MchAppController extends CommonCtrl {
 
-    @Autowired private MchAppService mchAppService;
-    @Autowired private IMQSender mqSender;
+    @Autowired
+    private MchAppService mchAppService;
+    @Autowired
+    private IMQSender mqSender;
 
     /**
      * @Author: ZhuXiao
      * @Description: 应用列表
      * @Date: 9:59 2021/6/16
-    */
+     */
     @Operation(summary = "查询应用列表", description = "")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -79,7 +81,7 @@ public class MchAppController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 新建应用
      * @Date: 10:05 2021/6/16
-    */
+     */
     @Operation(summary = "新建应用", description = "")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -129,7 +131,7 @@ public class MchAppController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 更新应用信息
      * @Date: 10:11 2021/6/16
-    */
+     */
     @Operation(summary = "更新应用信息", description = "")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),

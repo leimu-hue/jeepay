@@ -59,17 +59,22 @@ import java.util.List;
 @RequestMapping("/api/mch/payConfigs")
 public class MchPayInterfaceConfigController extends CommonCtrl {
 
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
-    @Autowired private MchAppService mchAppService;
-    @Autowired private IMQSender mqSender;
-    @Autowired private MchInfoService mchInfoService;
-    @Autowired private SysConfigService sysConfigService;
+    @Autowired
+    private PayInterfaceConfigService payInterfaceConfigService;
+    @Autowired
+    private MchAppService mchAppService;
+    @Autowired
+    private IMQSender mqSender;
+    @Autowired
+    private MchInfoService mchInfoService;
+    @Autowired
+    private SysConfigService sysConfigService;
 
     /**
      * @Author: ZhuXiao
      * @Description: 查询应用支付接口配置列表
      * @Date: 15:50 2021/4/27
-    */
+     */
     @Operation(summary = "查询应用支付接口配置列表")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -87,7 +92,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 根据 appId、接口类型 获取应用参数配置
      * @Date: 17:03 2021/4/27
-    */
+     */
     @Operation(summary = "根据应用ID、接口类型 获取应用参数配置")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -125,7 +130,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
      * @Author: ZhuXiao
      * @Description: 应用支付接口配置
      * @Date: 16:13 2021/4/27
-    */
+     */
     @Operation(summary = "更新应用支付参数")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
@@ -168,7 +173,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
 
             // 合并支付参数
             payInterfaceConfig.setIfParams(StringKit.marge(dbRecoed.getIfParams(), payInterfaceConfig.getIfParams()));
-        }else {
+        } else {
             payInterfaceConfig.setCreatedUid(userId);
             payInterfaceConfig.setCreatedBy(realName);
         }
@@ -185,8 +190,9 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
     }
 
 
-
-    /** 查询支付宝商户授权URL **/
+    /**
+     * 查询支付宝商户授权URL
+     **/
     @Operation(summary = "查询支付宝商户授权URL")
     @Parameters({
             @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),

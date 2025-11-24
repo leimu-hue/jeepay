@@ -53,7 +53,7 @@ public class PpPc extends PppayPaymentService {
                 .userAction("PAY_NOW")
                 .shippingPreference("NO_SHIPPING");
 
-        if(StringUtils.isNotBlank(bizRQ.getCancelUrl())) {
+        if (StringUtils.isNotBlank(bizRQ.getCancelUrl())) {
             applicationContext.cancelUrl(bizRQ.getCancelUrl());
         }
 
@@ -106,9 +106,9 @@ public class PpPc extends PppayPaymentService {
         ChannelRetMsg channelRetMsg = new ChannelRetMsg();
 
         HttpResponse<Order> response;
-        try{
+        try {
             response = paypalWrapper.getClient().execute(request);
-        }catch (HttpException e) {
+        } catch (HttpException e) {
             String message = e.getMessage();
             cn.hutool.json.JSONObject messageObj = JSONUtil.parseObj(message);
             String issue = messageObj.getByPath("details[0].issue", String.class);

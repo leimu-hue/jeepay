@@ -42,11 +42,11 @@ import java.io.Serializable;
 public class SysUserAuth implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<SysUserAuth> gw(){
+    public static final LambdaQueryWrapper<SysUserAuth> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * ID
@@ -90,7 +90,6 @@ public class SysUserAuth implements Serializable {
      */
     @Schema(title = "sysType", description = "所属系统： MGR-运营平台, MCH-商户中心")
     private String sysType;
-
 
 
 }

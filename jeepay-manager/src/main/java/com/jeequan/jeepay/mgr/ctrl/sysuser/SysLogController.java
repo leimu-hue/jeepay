@@ -53,7 +53,8 @@ import java.util.List;
 @RequestMapping("api/sysLog")
 public class SysLogController extends CommonCtrl {
 
-    @Autowired SysLogService sysLogService;
+    @Autowired
+    SysLogService sysLogService;
 
 
     /**
@@ -73,7 +74,7 @@ public class SysLogController extends CommonCtrl {
             @Parameter(name = "sysType", description = "所属系统： MGR-运营平台, MCH-商户中心")
     })
     @PreAuthorize("hasAuthority('ENT_LOG_LIST')")
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ApiPageRes<SysLog> list() {
         SysLog sysLog = getObject(SysLog.class);
         JSONObject paramJSON = getReqParamJSON();
@@ -112,7 +113,7 @@ public class SysLogController extends CommonCtrl {
             @Parameter(name = "sysLogId", description = "系统日志ID", required = true)
     })
     @PreAuthorize("hasAuthority('ENT_SYS_LOG_VIEW')")
-    @RequestMapping(value="/{sysLogId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{sysLogId}", method = RequestMethod.GET)
     public ApiRes<SysLog> detail(@PathVariable("sysLogId") String sysLogId) {
         SysLog sysLog = sysLogService.getById(sysLogId);
         if (sysLog == null) {
@@ -133,7 +134,7 @@ public class SysLogController extends CommonCtrl {
     })
     @PreAuthorize("hasAuthority('ENT_SYS_LOG_DEL')")
     @MethodLog(remark = "删除日志信息")
-    @RequestMapping(value="/{selectedIds}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{selectedIds}", method = RequestMethod.DELETE)
     public ApiRes delete(@PathVariable("selectedIds") String selectedIds) {
         String[] ids = selectedIds.split(",");
         List<Long> idsList = new LinkedList<>();

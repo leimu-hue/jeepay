@@ -15,13 +15,13 @@
  */
 package com.jeequan.jeepay.components.mq.vender.aliyunrocketmq;
 
-import com.aliyun.openservices.ons.api.*;
+import com.aliyun.openservices.ons.api.Action;
+import com.aliyun.openservices.ons.api.Consumer;
 import com.jeequan.jeepay.components.mq.constant.MQSendTypeEnum;
 import com.jeequan.jeepay.components.mq.vender.IMQMsgReceiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 @Slf4j
 public abstract class AbstractAliYunRocketMQReceiver implements IMQMsgReceiver, InitializingBean {

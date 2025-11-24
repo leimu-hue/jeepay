@@ -49,28 +49,31 @@ import java.util.List;
 @RequestMapping("api/sysEnts")
 public class SysEntController extends CommonCtrl {
 
-	@Autowired SysEntitlementService sysEntitlementService;
+    @Autowired
+    SysEntitlementService sysEntitlementService;
 
-	/** 查询权限集合 */
-	@Operation(summary = "查询权限集合")
-	@Parameters({
-			@Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
-	})
-	@PreAuthorize("hasAnyAuthority( 'ENT_UR_ROLE_ENT_LIST', 'ENT_UR_ROLE_DIST' )")
-	@RequestMapping(value="/showTree", method = RequestMethod.GET)
-	public ApiRes<List<JSONObject>> showTree() {
+    /**
+     * 查询权限集合
+     */
+    @Operation(summary = "查询权限集合")
+    @Parameters({
+            @Parameter(name = "iToken", description = "用户身份凭证", required = true, in = ParameterIn.HEADER),
+    })
+    @PreAuthorize("hasAnyAuthority( 'ENT_UR_ROLE_ENT_LIST', 'ENT_UR_ROLE_DIST' )")
+    @RequestMapping(value = "/showTree", method = RequestMethod.GET)
+    public ApiRes<List<JSONObject>> showTree() {
 
-		//查询全部数据
-		List<SysEntitlement> list = sysEntitlementService.list(SysEntitlement.gw().eq(SysEntitlement::getSysType, CS.SYS_TYPE.MCH));
+        //查询全部数据
+        List<SysEntitlement> list = sysEntitlementService.list(SysEntitlement.gw().eq(SysEntitlement::getSysType, CS.SYS_TYPE.MCH));
 
-		//4. 转换为json树状结构
-		JSONArray jsonArray = (JSONArray) JSONArray.toJSON(list);
-		List<JSONObject> leftMenuTree = new TreeDataBuilder(jsonArray,
-				"entId", "pid", "children", "entSort", true)
-				.buildTreeObject();
+        //4. 转换为json树状结构
+        JSONArray jsonArray = (JSONArray) JSONArray.toJSON(list);
+        List<JSONObject> leftMenuTree = new TreeDataBuilder(jsonArray,
+                "entId", "pid", "children", "entSort", true)
+                .buildTreeObject();
 
-		return ApiRes.ok(leftMenuTree);
-	}
+        return ApiRes.ok(leftMenuTree);
+    }
 
 
 }

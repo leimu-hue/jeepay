@@ -45,17 +45,19 @@ import java.math.BigDecimal;
 import java.security.PrivateKey;
 
 /*
-* 微信 转账回调接口实现类
-*
-* @author yr
-* @site https://www.jeequan.com
-* @date 2025/03/11 17:16
-*/
+ * 微信 转账回调接口实现类
+ *
+ * @author yr
+ * @site https://www.jeequan.com
+ * @date 2025/03/11 17:16
+ */
 @Service
 @Slf4j
 public class WxpayTransferNoticeService extends AbstractTransferNoticeService {
 
-    @Autowired private TransferOrderService transferOrderService;
+    @Autowired
+    private TransferOrderService transferOrderService;
+
     @Override
     public String getIfCode() {
         return CS.IF_CODE.WXPAY;
@@ -66,13 +68,13 @@ public class WxpayTransferNoticeService extends AbstractTransferNoticeService {
         try {
             // 获取转账单信息
             TransferOrder transferOrder = transferOrderService.getById(urlOrderId);
-            if(transferOrder == null){
+            if (transferOrder == null) {
                 throw new BizException("转账记录不存在");
             }
 
             //获取支付参数 (缓存数据) 和 商户信息
             MchAppConfigContext mchAppConfigContext = configContextQueryService.queryMchInfoAndAppInfo(transferOrder.getMchNo(), transferOrder.getAppId());
-            if(mchAppConfigContext == null){
+            if (mchAppConfigContext == null) {
                 throw new BizException("获取商户信息失败");
             }
 
@@ -103,11 +105,11 @@ public class WxpayTransferNoticeService extends AbstractTransferNoticeService {
 
             // 成功－SUCCESS
             String status = result.getState();
-            if("SUCCESS".equals(status)){
+            if ("SUCCESS".equals(status)) {
                 channelResult.setChannelState(ChannelRetMsg.ChannelState.CONFIRM_SUCCESS);
-            } else if("FAIL".equals(status)
+            } else if ("FAIL".equals(status)
                     || "CANCELING".equals(status)
-                    || "CANCELLED".equals(status)){  //FAIL—失败， CANCELING—撤销中, CANCELLED--已撤销
+                    || "CANCELLED".equals(status)) {  //FAIL—失败， CANCELING—撤销中, CANCELLED--已撤销
                 channelResult.setChannelState(ChannelRetMsg.ChannelState.CONFIRM_FAIL); //支付失败
             }
 
@@ -131,7 +133,8 @@ public class WxpayTransferNoticeService extends AbstractTransferNoticeService {
 
     /**
      * V3校验通知签名
-     * @param request 请求信息
+     *
+     * @param request             请求信息
      * @param mchAppConfigContext 商户配置
      * @return true:校验通过 false:校验不通过
      */
@@ -150,7 +153,7 @@ public class WxpayTransferNoticeService extends AbstractTransferNoticeService {
         WxPayService wxPayService = configContextQueryService.getWxServiceWrapper(mchAppConfigContext).getWxPayService();
         WxPayConfig wxPayConfig = wxPayService.getConfig();
 
-        if(StringUtils.isEmpty(wxPayConfig.getPublicKeyId())){ // 如果存在wxPublicKeyId, 那么无需自动换取平台证书
+        if (StringUtils.isEmpty(wxPayConfig.getPublicKeyId())) { // 如果存在wxPublicKeyId, 那么无需自动换取平台证书
             // 自动获取微信平台证书
             FileInputStream fis = new FileInputStream(wxPayConfig.getPrivateKeyPath());
             PrivateKey privateKey = PemUtils.loadPrivateKey(fis);
@@ -171,12 +174,13 @@ public class WxpayTransferNoticeService extends AbstractTransferNoticeService {
 
     /**
      * V3接口验证微信转账通知参数
+     *
      * @return
      */
     public void verifyWxTransferParams(TransferBillsNotifyResult.DecryptNotifyResult result, TransferOrder transferOrder) {
         try {
             // 核对金额
-            Integer totalAmount = result.getTransferAmount();   			// 总金额
+            Integer totalAmount = result.getTransferAmount();            // 总金额
             long wxTransferAmt = new BigDecimal(totalAmount).longValue();
             long dbTransferAmt = transferOrder.getAmount().longValue();
             if (dbTransferAmt != wxTransferAmt) {

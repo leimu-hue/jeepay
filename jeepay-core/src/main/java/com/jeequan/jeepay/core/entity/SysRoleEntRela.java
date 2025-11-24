@@ -40,11 +40,11 @@ import java.io.Serializable;
 public class SysRoleEntRela implements Serializable {
 
     //gw
-    public static final LambdaQueryWrapper<SysRoleEntRela> gw(){
+    public static final LambdaQueryWrapper<SysRoleEntRela> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 角色ID

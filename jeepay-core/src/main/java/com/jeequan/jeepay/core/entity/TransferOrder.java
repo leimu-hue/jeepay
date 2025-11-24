@@ -41,7 +41,9 @@ import java.util.Date;
 @TableName("t_transfer_order")
 public class TransferOrder implements Serializable {
 
-    /** 入账方式 **/
+    /**
+     * 入账方式
+     **/
     public static final String ENTRY_WX_CASH = "WX_CASH";
     public static final String ENTRY_ALIPAY_CASH = "ALIPAY_CASH";
     public static final String ENTRY_BANK_CARD = "BANK_CARD";
@@ -53,12 +55,12 @@ public class TransferOrder implements Serializable {
     public static final byte STATE_CLOSED = 4; //转账关闭
 
 
-    public static final LambdaQueryWrapper<TransferOrder> gw(){
+    public static final LambdaQueryWrapper<TransferOrder> gw() {
         return new LambdaQueryWrapper<>();
     }
 
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 转账订单号

@@ -192,7 +192,7 @@ public class PaypalWrapper {
         return new ResponseEntity(text, httpHeaders, HttpStatus.OK);
     }
 
-    public static PaypalWrapper buildPaypalWrapper(PppayNormalMchParams ppPayNormalMchParams){
+    public static PaypalWrapper buildPaypalWrapper(PppayNormalMchParams ppPayNormalMchParams) {
         PaypalWrapper paypalWrapper = new PaypalWrapper();
         PayPalEnvironment environment = new PayPalEnvironment.Live(ppPayNormalMchParams.getClientId(), ppPayNormalMchParams.getSecret());
         if (ppPayNormalMchParams.getSandbox() == 1) {

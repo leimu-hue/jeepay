@@ -42,11 +42,11 @@ import java.util.Date;
 public class SysEntitlement extends BaseModel {
 
     //gw
-    public static final LambdaQueryWrapper<SysEntitlement> gw(){
+    public static final LambdaQueryWrapper<SysEntitlement> gw() {
         return new LambdaQueryWrapper<>();
     }
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 权限ID[ENT_功能模块_子模块_操作], eg: ENT_ROLE_LIST_ADD
