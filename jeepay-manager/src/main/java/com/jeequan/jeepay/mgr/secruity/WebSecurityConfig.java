@@ -151,7 +151,7 @@ public class WebSecurityConfig {
     public CorsFilter corsFilter() {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        if (systemYmlConfig.getAllowCors()) {
+        if (Boolean.TRUE.equals(systemYmlConfig.getAllowCors())) {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowCredentials(true);   //带上cookie信息
 //          config.addAllowedOrigin(CorsConfiguration.ALL);  //允许跨域的域名， *表示允许任何域名使用

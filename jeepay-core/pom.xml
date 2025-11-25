@@ -22,14 +22,6 @@
 
     <!-- 项目依赖声明 -->
     <dependencies>
-
-        <!-- 依赖 [spring-context] 基础包 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- 可选依赖 [spring-redis]  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,7 +46,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-            <version>${mybatis.plus.starter.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -97,6 +88,10 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-models-jakarta</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

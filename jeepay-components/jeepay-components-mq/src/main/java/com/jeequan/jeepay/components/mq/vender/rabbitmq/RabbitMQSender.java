@@ -58,7 +58,7 @@ public class RabbitMQSender implements IMQSender {
         if (mqModel.getMQType() == MQSendTypeEnum.QUEUE) {
 
             rabbitTemplate.convertAndSend(RabbitMQConfig.DELAYED_EXCHANGE_NAME, mqModel.getMQName(), mqModel.toMessage(), messagePostProcessor -> {
-                messagePostProcessor.getMessageProperties().setDelay(Math.toIntExact(delay * 1000));
+                messagePostProcessor.getMessageProperties().setDelayLong(delay * 1000L);
                 return messagePostProcessor;
             });
         } else {

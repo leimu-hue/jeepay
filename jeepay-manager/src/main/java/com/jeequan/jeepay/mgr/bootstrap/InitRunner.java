@@ -27,6 +27,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Optional;
 
 /*
  *  项目初始化操作
@@ -48,7 +49,7 @@ public class InitRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         // 配置是否使用缓存模式
-        SysConfigService.IS_USE_CACHE = systemYmlConfig.getCacheConfig();
+        SysConfigService.IS_USE_CACHE = Optional.ofNullable(systemYmlConfig.getCacheConfig()).orElse(false);
 
         //初始化处理fastjson格式
         SerializeConfig serializeConfig = SerializeConfig.getGlobalInstance();

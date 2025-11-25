@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "isys")
+@ConfigurationProperties(prefix = "isys.mgr")
 public class SystemYmlConfig {
 
     /**

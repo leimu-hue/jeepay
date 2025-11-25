@@ -53,25 +53,20 @@ public class RequestKitBean {
      * JSON 格式通过请求主体（BODY）传输  获取参数
      **/
     public String getReqParamFromBody() {
-
-        String body = "";
-
+        StringBuilder body = new StringBuilder();
         if (isConvertJSON()) {
-
             try {
                 String str;
                 while ((str = request.getReader().readLine()) != null) {
-                    body += str;
+                    body.append(str);
                 }
-
-                return body;
-
+                return body.toString();
             } catch (Exception e) {
                 log.error("请求参数转换异常！ params=[{}]", body);
                 throw new BizException(ApiCodeEnum.PARAMS_ERROR, "转换异常");
             }
         } else {
-            return body;
+            return body.toString();
         }
     }
 
@@ -80,11 +75,8 @@ public class RequestKitBean {
      * request.getParameter 获取参数 并转换为JSON格式
      **/
     public JSONObject reqParam2JSON() {
-
         JSONObject returnObject = new JSONObject();
-
         if (isConvertJSON()) {
-
             String body = "";
             try {
                 body = request.getReader().lines().collect(Collectors.joining(""));
@@ -98,29 +90,22 @@ public class RequestKitBean {
                 throw new BizException(ApiCodeEnum.PARAMS_ERROR, "转换异常");
             }
         }
-
         // 参数Map
-        Map properties = request.getParameterMap();
-
+        Map<String, String[]> properties = request.getParameterMap();
         // 返回值Map
-        Iterator entries = properties.entrySet().iterator();
-        Map.Entry entry;
-        String name;
+        Iterator<Map.Entry<String, String[]>> entries = properties.entrySet().iterator();
         String value = "";
         while (entries.hasNext()) {
-            entry = (Map.Entry) entries.next();
-            name = (String) entry.getKey();
-            Object valueObj = entry.getValue();
+            var entry = entries.next();
+            String name = entry.getKey();
+            String[] valueObj = entry.getValue();
             if (null == valueObj) {
                 value = "";
-            } else if (valueObj instanceof String[]) {
-                String[] values = (String[]) valueObj;
-                for (int i = 0; i < values.length; i++) {
-                    value = values[i] + ",";
+            } else {
+                for (String s : valueObj) {
+                    value = s + ",";
                 }
                 value = value.substring(0, value.length() - 1);
-            } else {
-                value = valueObj.toString();
             }
 
             if (!name.contains("[")) {
@@ -138,7 +123,6 @@ public class RequestKitBean {
             returnObject.put(mainKey, subJson);
         }
         return returnObject;
-
     }
 
 
@@ -146,7 +130,6 @@ public class RequestKitBean {
      * 获取json格式的请求参数
      **/
     public JSONObject getReqParamJSON() {
-
         //将转换好的reqParam JSON格式的对象保存在当前请求上下文对象中进行保存；
         // 注意1： springMVC的CTRL默认单例模式， 不可使用局部变量保存，会出现线程安全问题；
         // 注意2： springMVC的请求模式为线程池，如果采用ThreadLocal保存对象信息，可能会出现不清空或者被覆盖的问题。
@@ -163,36 +146,28 @@ public class RequestKitBean {
      * 判断请求参数是否转换为json格式
      */
     private boolean isConvertJSON() {
-
         String contentType = request.getContentType();
-
         //有contentType  && json格式，  get请求不转换
-        if (contentType != null
-                && contentType.toLowerCase().indexOf("application/json") >= 0
-                && !request.getMethod().equalsIgnoreCase("GET")
-        ) { //application/json 需要转换为json格式；
-            return true;
-        }
-
-        return false;
+        //application/json 需要转换为json格式；
+        return contentType != null
+                && contentType.toLowerCase().contains("application/json")
+                && !request.getMethod().equalsIgnoreCase("GET");
     }
 
     /**
      * 获取客户端ip地址
      **/
     public String getClientIp() {
-        String ipAddress = null;
-        ipAddress = request.getHeader("x-forwarded-for");
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        String ipAddress = request.getHeader("x-forwarded-for");
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
         }
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
         }
-
         // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
         if (ipAddress != null && ipAddress.length() > 15) {
             if (ipAddress.indexOf(",") > 0) {

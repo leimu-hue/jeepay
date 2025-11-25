@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * @date 2021-04-27 15:50
  */
 @Component
-@ConfigurationProperties(prefix = "isys")
+@ConfigurationProperties(prefix = "isys.mch")
 @Data
 public class SystemYmlConfig {
 
