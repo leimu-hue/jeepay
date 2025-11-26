@@ -262,7 +262,7 @@ public class MchInfoController extends CommonCtrl {
     public ApiRes<MchInfo> detail(@PathVariable("mchNo") String mchNo) {
         MchInfo mchInfo = mchInfoService.getById(mchNo);
         if (mchInfo == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         SysUser sysUser = sysUserService.getById(mchInfo.getInitUserId());

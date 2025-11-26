@@ -15,6 +15,8 @@
  */
 package com.jeequan.jeepay.core.constants;
 
+import lombok.Getter;
+
 /*
  * 接口返回码
  *
@@ -22,6 +24,7 @@ package com.jeequan.jeepay.core.constants;
  * @site https://www.jeequan.com
  * @date 2021/5/24 17:07
  */
+@Getter
 public enum ApiCodeEnum {
 
     SUCCESS(0, "SUCCESS"), //请求成功
@@ -35,24 +38,17 @@ public enum ApiCodeEnum {
     SYS_OPERATION_FAIL_CREATE(5000, "新增失败"),
     SYS_OPERATION_FAIL_DELETE(5001, "删除失败"),
     SYS_OPERATION_FAIL_UPDATE(5002, "修改失败"),
-    SYS_OPERATION_FAIL_SELETE(5003, "记录不存在"),
+    SYS_OPERATION_FAIL_NOT_EXISTS(5003, "记录不存在"),
     SYS_PERMISSION_ERROR(5004, "权限错误，当前用户不支持此操作");
 
 
-    private int code;
+    private final int code;
 
-    private String msg;
+    private final String msg;
 
     ApiCodeEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode() {
-        return this.code;
-    }
-
-    public String getMsg() {
-        return this.msg;
-    }
 }

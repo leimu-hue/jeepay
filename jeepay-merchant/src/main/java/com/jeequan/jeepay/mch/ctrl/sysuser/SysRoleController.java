@@ -121,7 +121,7 @@ public class SysRoleController extends CommonCtrl {
     public ApiRes<SysRole> detail(@PathVariable("recordId") String recordId) {
         SysRole sysRole = sysRoleService.getOne(SysRole.gw().eq(SysRole::getRoleId, recordId).eq(SysRole::getBelongInfoId, getCurrentMchNo()));
         if (sysRole == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(sysRole);
     }
@@ -213,7 +213,7 @@ public class SysRoleController extends CommonCtrl {
     public ApiRes del(@PathVariable("recordId") String recordId) {
         SysRole sysRole = sysRoleService.getOne(SysRole.gw().eq(SysRole::getRoleId, recordId).eq(SysRole::getBelongInfoId, getCurrentMchNo()));
         if (sysRole == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         if (sysUserRoleRelaService.count(SysUserRoleRela.gw().eq(SysUserRoleRela::getRoleId, recordId)) > 0) {

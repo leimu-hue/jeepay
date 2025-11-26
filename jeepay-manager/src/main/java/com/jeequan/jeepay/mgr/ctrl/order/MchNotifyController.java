@@ -135,7 +135,7 @@ public class MchNotifyController extends CommonCtrl {
     public ApiRes<MchNotifyRecord> detail(@PathVariable("notifyId") String notifyId) {
         MchNotifyRecord mchNotify = mchNotifyService.getById(notifyId);
         if (mchNotify == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(mchNotify);
     }
@@ -155,7 +155,7 @@ public class MchNotifyController extends CommonCtrl {
     public ApiRes<MchNotifyRecord> resend(@PathVariable("notifyId") Long notifyId) {
         MchNotifyRecord mchNotify = mchNotifyService.getById(notifyId);
         if (mchNotify == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         if (mchNotify.getState() != MchNotifyRecord.STATE_FAIL) {
             throw new BizException("请选择失败的通知记录");

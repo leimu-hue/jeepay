@@ -96,7 +96,7 @@ public class RefundOrderController extends CommonCtrl {
     public ApiRes<RefundOrder> detail(@PathVariable("refundOrderId") String refundOrderId) {
         RefundOrder refundOrder = refundOrderService.getById(refundOrderId);
         if (refundOrder == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         if (!refundOrder.getMchNo().equals(getCurrentUser().getSysUser().getBelongInfoId())) {
             return ApiRes.fail(ApiCodeEnum.SYS_PERMISSION_ERROR);

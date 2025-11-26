@@ -101,7 +101,7 @@ public class MchAppController extends CommonCtrl {
         mchApp.setAppId(IdUtil.objectId());
 
         if (mchInfoService.getById(mchApp.getMchNo()) == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         boolean result = mchAppService.save(mchApp);
@@ -126,7 +126,7 @@ public class MchAppController extends CommonCtrl {
     public ApiRes<MchApp> detail(@PathVariable("appId") String appId) {
         MchApp mchApp = mchAppService.selectById(appId);
         if (mchApp == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         return ApiRes.ok(mchApp);

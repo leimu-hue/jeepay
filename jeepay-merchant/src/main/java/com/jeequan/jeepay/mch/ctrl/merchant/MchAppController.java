@@ -121,7 +121,7 @@ public class MchAppController extends CommonCtrl {
         MchApp mchApp = mchAppService.selectById(appId);
 
         if (mchApp == null || !mchApp.getMchNo().equals(getCurrentMchNo())) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         return ApiRes.ok(mchApp);

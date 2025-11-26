@@ -92,7 +92,7 @@ public class TransferOrderController extends CommonCtrl {
     public ApiRes<TransferOrder> detail(@PathVariable("recordId") String transferId) {
         TransferOrder refundOrder = transferOrderService.getById(transferId);
         if (refundOrder == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(refundOrder);
     }

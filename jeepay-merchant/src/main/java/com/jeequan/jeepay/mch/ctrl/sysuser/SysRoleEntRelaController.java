@@ -103,7 +103,7 @@ public class SysRoleEntRelaController extends CommonCtrl {
 
         SysRole sysRole = sysRoleService.getOne(SysRole.gw().eq(SysRole::getRoleId, roleId).eq(SysRole::getBelongInfoId, getCurrentMchNo()));
         if (sysRole == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         List<String> entIdList = JSONArray.parseArray(getValStringRequired("entIdListStr"), String.class);

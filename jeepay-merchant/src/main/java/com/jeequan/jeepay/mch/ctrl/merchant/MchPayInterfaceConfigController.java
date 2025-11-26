@@ -204,7 +204,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
         MchApp mchApp = mchAppService.getById(mchAppId);
 
         if (mchApp == null || !mchApp.getMchNo().equals(getCurrentMchNo())) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         MchInfo mchInfo = mchInfoService.getById(mchApp.getMchNo());

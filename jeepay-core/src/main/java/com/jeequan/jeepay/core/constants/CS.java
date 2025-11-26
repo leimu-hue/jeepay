@@ -15,8 +15,6 @@
  */
 package com.jeequan.jeepay.core.constants;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,7 +26,7 @@ import java.util.Set;
 public class CS {
 
     //登录图形验证码缓存时间，单位：s
-    public static final int VERCODE_CACHE_TIME = 60;
+    public static final int VER_CODE_CACHE_TIME = 60;
 
     /**
      * 系统类型定义
@@ -36,12 +34,10 @@ public class CS {
     public interface SYS_TYPE {
         String MCH = "MCH";
         String MGR = "MGR";
-        Map<String, String> SYS_TYPE_MAP = new HashMap<>();
-    }
-
-    static {
-        SYS_TYPE.SYS_TYPE_MAP.put(SYS_TYPE.MCH, "商户系统");
-        SYS_TYPE.SYS_TYPE_MAP.put(SYS_TYPE.MGR, "运营平台");
+        Map<String, String> SYS_TYPE_MAP = Map.of(
+                SYS_TYPE.MCH, "商户系统",
+                SYS_TYPE.MGR, "运营平台"
+        );
     }
 
     /**
@@ -56,12 +52,10 @@ public class CS {
     public static final int PUB_USABLE = 1;
     public static final int PUB_DISABLE = 0;
 
-    public static final Map<Integer, String> PUB_USABLE_MAP = new HashMap<>();
-
-    static {
-        PUB_USABLE_MAP.put(PUB_USABLE, "正常");
-        PUB_USABLE_MAP.put(PUB_DISABLE, "停用");
-    }
+    public static final Map<Integer, String> PUB_USABLE_MAP = Map.of(
+            PUB_USABLE, "正常",
+            PUB_DISABLE, "停用"
+    );
 
     /**
      * 账号类型:1-服务商 2-商户 3-商户应用
@@ -93,15 +87,7 @@ public class CS {
     /**
      * 允许上传的的图片文件格式，需要与 WebSecurityConfig对应
      */
-    public static final Set<String> ALLOW_UPLOAD_IMG_SUFFIX = new HashSet<>();
-
-    static {
-        ALLOW_UPLOAD_IMG_SUFFIX.add("jpg");
-        ALLOW_UPLOAD_IMG_SUFFIX.add("png");
-        ALLOW_UPLOAD_IMG_SUFFIX.add("jpeg");
-        ALLOW_UPLOAD_IMG_SUFFIX.add("gif");
-        ALLOW_UPLOAD_IMG_SUFFIX.add("mp4");
-    }
+    public static final Set<String> ALLOW_UPLOAD_IMG_SUFFIX = Set.of("jpg", "png", "jpeg", "gif", "mp4");
 
 
     public static final long TOKEN_TIME = 60 * 60 * 2; //单位：s,  两小时
@@ -132,7 +118,7 @@ public class CS {
     /**
      * 回调URL的格前缀
      */
-    public static final String PAY_RETURNURL_FIX_ONLY_JUMP_PREFIX = "ONLYJUMP_";
+    public static final String PAY_RETURN_URL_FIX_ONLY_JUMP_PREFIX = "ONLYJUMP_";
 
     /**
      * 登录认证类型

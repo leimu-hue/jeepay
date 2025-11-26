@@ -110,7 +110,7 @@ public class MchDivisionReceiverGroupController extends CommonCtrl {
                         .eq(MchDivisionReceiverGroup::getMchNo, getCurrentMchNo())
                         .eq(MchDivisionReceiverGroup::getReceiverGroupId, recordId));
         if (record == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(record);
     }
@@ -201,7 +201,7 @@ public class MchDivisionReceiverGroupController extends CommonCtrl {
         MchDivisionReceiverGroup record = mchDivisionReceiverGroupService.getOne(MchDivisionReceiverGroup.gw()
                 .eq(MchDivisionReceiverGroup::getReceiverGroupId, recordId).eq(MchDivisionReceiverGroup::getMchNo, getCurrentMchNo()));
         if (record == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         if (mchDivisionReceiverService.count(MchDivisionReceiver.gw().eq(MchDivisionReceiver::getReceiverGroupId, recordId)) > 0) {

@@ -90,7 +90,7 @@ public class ChannelNoticeController extends AbstractCtrl {
             }
 
             // 仅做跳转，直接跳转订单的returnUrl
-            if (StringUtils.isNotBlank(urlOrderId) && urlOrderId.startsWith(CS.PAY_RETURNURL_FIX_ONLY_JUMP_PREFIX)) {
+            if (StringUtils.isNotBlank(urlOrderId) && urlOrderId.startsWith(CS.PAY_RETURN_URL_FIX_ONLY_JUMP_PREFIX)) {
                 onlyJump(urlOrderId, logPrefix);
                 return null;
             }
@@ -287,9 +287,9 @@ public class ChannelNoticeController extends AbstractCtrl {
 
     private void onlyJump(String urlOrderId, String logPrefix) throws IOException {
 
-        if (StringUtils.isNotBlank(urlOrderId) && urlOrderId.startsWith(CS.PAY_RETURNURL_FIX_ONLY_JUMP_PREFIX)) {
+        if (StringUtils.isNotBlank(urlOrderId) && urlOrderId.startsWith(CS.PAY_RETURN_URL_FIX_ONLY_JUMP_PREFIX)) {
 
-            String payOrderId = urlOrderId.substring(CS.PAY_RETURNURL_FIX_ONLY_JUMP_PREFIX.length());
+            String payOrderId = urlOrderId.substring(CS.PAY_RETURN_URL_FIX_ONLY_JUMP_PREFIX.length());
 
             //获取订单号 和 订单数据
             PayOrder payOrder = payOrderService.getById(payOrderId);

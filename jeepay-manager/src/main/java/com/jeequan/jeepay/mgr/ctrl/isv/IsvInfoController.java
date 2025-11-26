@@ -193,7 +193,7 @@ public class IsvInfoController extends CommonCtrl {
     public ApiRes<IsvInfo> detail(@PathVariable("isvNo") String isvNo) {
         IsvInfo isvInfo = isvInfoService.getById(isvNo);
         if (isvInfo == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(isvInfo);
     }

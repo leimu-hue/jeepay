@@ -144,7 +144,7 @@ public class MchPayPassageConfigController extends CommonCtrl {
         String mchNo = getCurrentUser().getSysUser().getBelongInfoId();
         MchInfo mchInfo = mchInfoService.getById(mchNo);
         if (mchInfo == null || mchInfo.getState() != CS.YES) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         // 根据支付方式查询可用支付接口列表
@@ -167,7 +167,7 @@ public class MchPayPassageConfigController extends CommonCtrl {
     public ApiRes<MchPayPassage> detail(@PathVariable("id") Long id) {
         MchPayPassage payPassage = mchPayPassageService.getById(id);
         if (payPassage == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         if (!payPassage.getMchNo().equals(getCurrentUser().getSysUser().getBelongInfoId())) {
             return ApiRes.fail(ApiCodeEnum.SYS_PERMISSION_ERROR);

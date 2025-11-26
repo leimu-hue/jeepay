@@ -117,7 +117,7 @@ public class SysLogController extends CommonCtrl {
     public ApiRes<SysLog> detail(@PathVariable("sysLogId") String sysLogId) {
         SysLog sysLog = sysLogService.getById(sysLogId);
         if (sysLog == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(sysLog);
     }

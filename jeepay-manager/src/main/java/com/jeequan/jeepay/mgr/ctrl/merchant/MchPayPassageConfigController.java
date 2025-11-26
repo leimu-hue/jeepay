@@ -147,12 +147,12 @@ public class MchPayPassageConfigController extends CommonCtrl {
 
         MchApp mchApp = mchAppService.getById(appId);
         if (mchApp == null || mchApp.getState() != CS.YES) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         MchInfo mchInfo = mchInfoService.getById(mchApp.getMchNo());
         if (mchInfo == null || mchInfo.getState() != CS.YES) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         // 根据支付方式查询可用支付接口列表
@@ -185,7 +185,7 @@ public class MchPayPassageConfigController extends CommonCtrl {
             }
             MchApp mchApp = mchAppService.getById(mchPayPassageList.get(0).getAppId());
             if (mchApp == null || mchApp.getState() != CS.YES) {
-                return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+                return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
             }
 
             mchPayPassageService.saveOrUpdateBatchSelf(mchPayPassageList, mchApp.getMchNo());

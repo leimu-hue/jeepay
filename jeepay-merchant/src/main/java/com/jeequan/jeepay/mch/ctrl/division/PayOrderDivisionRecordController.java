@@ -141,7 +141,7 @@ public class PayOrderDivisionRecordController extends CommonCtrl {
                         .eq(PayOrderDivisionRecord::getMchNo, getCurrentMchNo())
                         .eq(PayOrderDivisionRecord::getRecordId, recordId));
         if (record == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(record);
     }
@@ -163,7 +163,7 @@ public class PayOrderDivisionRecordController extends CommonCtrl {
                         .eq(PayOrderDivisionRecord::getMchNo, getCurrentMchNo())
                         .eq(PayOrderDivisionRecord::getRecordId, recordId));
         if (record == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         if (record.getState() != PayOrderDivisionRecord.STATE_FAIL) {

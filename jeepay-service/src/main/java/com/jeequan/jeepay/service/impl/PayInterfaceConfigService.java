@@ -100,11 +100,11 @@ public class PayInterfaceConfigService extends ServiceImpl<PayInterfaceConfigMap
 
         MchApp mchApp = mchAppService.getById(appId);
         if (mchApp == null || mchApp.getState() != CS.YES) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         MchInfo mchInfo = mchInfoService.getById(mchApp.getMchNo());
         if (mchInfo == null || mchInfo.getState() != CS.YES) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         // 支付定义列表
         LambdaQueryWrapper<PayInterfaceDefine> queryWrapper = PayInterfaceDefine.gw();

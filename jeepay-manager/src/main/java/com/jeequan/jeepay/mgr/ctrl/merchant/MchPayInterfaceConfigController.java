@@ -147,7 +147,7 @@ public class MchPayInterfaceConfigController extends CommonCtrl {
 
         MchApp mchApp = mchAppService.getById(infoId);
         if (mchApp == null || mchApp.getState() != CS.YES) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         PayInterfaceConfig payInterfaceConfig = getObject(PayInterfaceConfig.class);

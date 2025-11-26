@@ -134,7 +134,7 @@ public class PayOrderController extends CommonCtrl {
     public ApiRes<PayOrder> detail(@PathVariable("payOrderId") String payOrderId) {
         PayOrder payOrder = payOrderService.getById(payOrderId);
         if (payOrder == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         return ApiRes.ok(payOrder);
     }
@@ -164,7 +164,7 @@ public class PayOrderController extends CommonCtrl {
 
         PayOrder payOrder = payOrderService.getById(payOrderId);
         if (payOrder == null) {
-            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         if (payOrder.getState() != PayOrder.STATE_SUCCESS) {

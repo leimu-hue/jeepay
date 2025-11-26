@@ -42,36 +42,29 @@ public class ApiResBodyAdviceKit {
     private static final String API_EXTEND_FIELD_NAME = "ext";
 
     public static Object beforeBodyWrite(Object body) {
-
         //空的情况 不处理
         if (body == null) {
             return null;
         }
-
         if (body instanceof OriginalRes) {
             return ((OriginalRes) body).getData();
         }
-
         // 返回String 避免 StringHttpMessageConverter
         if (body instanceof String) {
             return body;
         }
-
         //返回文件流不处理
         if (body instanceof InputStreamResource) {
             return body;
         }
-
         //返回二进制文件不处理
         if (body instanceof byte[]) {
             return body;
         }
-
         //如果为ApiRes类型则仅处理扩展字段
         if (body instanceof ApiRes) {
             return procAndConvertJSON(body);
         } else {
-
             //ctrl返回其他非[ApiRes]认为处理成功， 先转换为成功状态， 在处理字段
             return procAndConvertJSON(ApiRes.ok(body));
         }
@@ -81,23 +74,18 @@ public class ApiResBodyAdviceKit {
      * 处理扩展字段 and 转换为json格式
      **/
     private static Object procAndConvertJSON(Object object) {
-
         Object json = JSON.toJSON(object); //转换为JSON格式
-
         if (json instanceof JSONObject) {  //对象类型
             processExtFieldByJSONObject((JSONObject) json);
             return json;
         }
-
         if (json instanceof Collection) {  //数组类型
-
             JSONArray result = new JSONArray();
             for (Object itemObj : (Collection) json) {
                 result.add(procAndConvertJSON(itemObj));
             }
             return result;
         }
-
         return json;
     }
 
@@ -106,7 +94,6 @@ public class ApiResBodyAdviceKit {
      * 处理jsonObject格式
      **/
     private static void processExtFieldByJSONObject(JSONObject jsonObject) {
-
         //如果包含字段， 则赋值到外层然后删除该字段
         if (jsonObject.containsKey(API_EXTEND_FIELD_NAME)) {
             JSONObject exFieldMap = jsonObject.getJSONObject(API_EXTEND_FIELD_NAME);
@@ -117,10 +104,7 @@ public class ApiResBodyAdviceKit {
             }
             jsonObject.remove(API_EXTEND_FIELD_NAME);  //删除字段
         }
-
         //处理所有值
-        for (String key : jsonObject.keySet()) {
-            jsonObject.put(key, procAndConvertJSON(jsonObject.get(key)));
-        }
+        jsonObject.replaceAll((k, v) -> procAndConvertJSON(jsonObject.get(k)));
     }
 }

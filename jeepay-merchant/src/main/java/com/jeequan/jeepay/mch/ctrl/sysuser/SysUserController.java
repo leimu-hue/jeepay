@@ -114,7 +114,7 @@ public class SysUserController extends CommonCtrl {
 
         SysUser sysUser = sysUserService.getById(recordId);
         if (sysUser == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
         if (!sysUser.getBelongInfoId().equals(getCurrentUser().getSysUser().getBelongInfoId())) {
             throw new BizException(ApiCodeEnum.SYS_PERMISSION_ERROR);
@@ -205,7 +205,7 @@ public class SysUserController extends CommonCtrl {
         }
         SysUser dbRecord = sysUserService.getOne(SysUser.gw().eq(SysUser::getSysUserId, recordId).eq(SysUser::getBelongInfoId, getCurrentMchNo()));
         if (dbRecord == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         //判断是否自己禁用自己

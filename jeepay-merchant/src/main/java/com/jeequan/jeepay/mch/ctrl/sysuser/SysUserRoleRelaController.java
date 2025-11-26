@@ -104,7 +104,7 @@ public class SysUserRoleRelaController extends CommonCtrl {
     public ApiRes relas(@PathVariable("sysUserId") Long sysUserId) {
         SysUser dbRecord = sysUserService.getOne(SysUser.gw().eq(SysUser::getSysUserId, sysUserId).eq(SysUser::getBelongInfoId, getCurrentMchNo()));
         if (dbRecord == null) {
-            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_NOT_EXISTS);
         }
 
         List<String> roleIdList = JSONArray.parseArray(getValStringRequired("roleIdListStr"), String.class);
